@@ -1,29 +1,19 @@
-const int BTRXPin = 10;
-const int BTTXPin = 11;
+#include <SoftwareSerial.h>
 
-const int LEDPin = 13;
+#define BT_SERIAL_TX_DIO 11 
+#define BT_SERIAL_RX_DIO 10
+#define BAUD_RATE 9600
+
+SoftwareSerial BluetoothSerial(BT_SERIAL_TX_DIO, BT_SERIAL_RX_DIO);
 
 void setup() {
-  Serial.begin(9600);
-  
-  pinMode(BTRXPin, INPUT);
-  pinMode(BTTXPin, OUTPUT);
-  
-  pinMode(LEDPin, OUTPUT);
-  digitalWrite(LEDPin, HIGH);
-  
+  BluetoothSerial.begin(BAUD_RATE);
+
 }
 
-void loop() {  
-  
-  if (digitalRead(LEDPin) == HIGH) {
-    digitalWrite(LEDPin, LOW);
-  } else {
-    digitalWrite(LEDPin, HIGH);
+void loop() {
+  if (BluetoothSerial.available()) {
+    BluetoothSerial.write(BluetoothSerial.read());
   }
-  
-  Serial.println("Hello, World!");
-  
-  delay(500);
 
 }
