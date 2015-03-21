@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20563E741AB92E8E00784939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E731AB92E8E00784939 /* AppDelegate.swift */; };
+		20563E761AB92E8E00784939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E751AB92E8E00784939 /* ViewController.swift */; };
+		20563E781AB92E8E00784939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20563E771AB92E8E00784939 /* Images.xcassets */; };
+		20563E7B1AB92E8E00784939 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20563E791AB92E8E00784939 /* Main.storyboard */; };
+		20563E871AB92E8E00784939 /* SADServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E861AB92E8E00784939 /* SADServerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		20563E811AB92E8E00784939 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 20563E661AB92E8D00784939 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20563E6D1AB92E8D00784939;
+			remoteInfo = SADServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		20563E6E1AB92E8D00784939 /* SADServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SADServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		20563E721AB92E8E00784939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20563E731AB92E8E00784939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		20563E751AB92E8E00784939 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		20563E771AB92E8E00784939 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		20563E7A1AB92E8E00784939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		20563E801AB92E8E00784939 /* SADServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SADServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		20563E851AB92E8E00784939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20563E861AB92E8E00784939 /* SADServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SADServerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		20563E6B1AB92E8D00784939 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20563E7D1AB92E8E00784939 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		20563E651AB92E8D00784939 = {
+			isa = PBXGroup;
+			children = (
+				20563E701AB92E8D00784939 /* SADServer */,
+				20563E831AB92E8E00784939 /* SADServerTests */,
+				20563E6F1AB92E8D00784939 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		20563E6F1AB92E8D00784939 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				20563E6E1AB92E8D00784939 /* SADServer.app */,
+				20563E801AB92E8E00784939 /* SADServerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20563E701AB92E8D00784939 /* SADServer */ = {
+			isa = PBXGroup;
+			children = (
+				20563E731AB92E8E00784939 /* AppDelegate.swift */,
+				20563E751AB92E8E00784939 /* ViewController.swift */,
+				20563E771AB92E8E00784939 /* Images.xcassets */,
+				20563E791AB92E8E00784939 /* Main.storyboard */,
+				20563E711AB92E8D00784939 /* Supporting Files */,
+			);
+			path = SADServer;
+			sourceTree = "<group>";
+		};
+		20563E711AB92E8D00784939 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				20563E721AB92E8E00784939 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		20563E831AB92E8E00784939 /* SADServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				20563E861AB92E8E00784939 /* SADServerTests.swift */,
+				20563E841AB92E8E00784939 /* Supporting Files */,
+			);
+			path = SADServerTests;
+			sourceTree = "<group>";
+		};
+		20563E841AB92E8E00784939 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				20563E851AB92E8E00784939 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		20563E6D1AB92E8D00784939 /* SADServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20563E8A1AB92E8E00784939 /* Build configuration list for PBXNativeTarget "SADServer" */;
+			buildPhases = (
+				20563E6A1AB92E8D00784939 /* Sources */,
+				20563E6B1AB92E8D00784939 /* Frameworks */,
+				20563E6C1AB92E8D00784939 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SADServer;
+			productName = SADServer;
+			productReference = 20563E6E1AB92E8D00784939 /* SADServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		20563E7F1AB92E8E00784939 /* SADServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20563E8D1AB92E8E00784939 /* Build configuration list for PBXNativeTarget "SADServerTests" */;
+			buildPhases = (
+				20563E7C1AB92E8E00784939 /* Sources */,
+				20563E7D1AB92E8E00784939 /* Frameworks */,
+				20563E7E1AB92E8E00784939 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				20563E821AB92E8E00784939 /* PBXTargetDependency */,
+			);
+			name = SADServerTests;
+			productName = SADServerTests;
+			productReference = 20563E801AB92E8E00784939 /* SADServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20563E661AB92E8D00784939 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Richard Marquez";
+				TargetAttributes = {
+					20563E6D1AB92E8D00784939 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					20563E7F1AB92E8E00784939 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 20563E6D1AB92E8D00784939;
+					};
+				};
+			};
+			buildConfigurationList = 20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SADServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 20563E651AB92E8D00784939;
+			productRefGroup = 20563E6F1AB92E8D00784939 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				20563E6D1AB92E8D00784939 /* SADServer */,
+				20563E7F1AB92E8E00784939 /* SADServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		20563E6C1AB92E8D00784939 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20563E781AB92E8E00784939 /* Images.xcassets in Resources */,
+				20563E7B1AB92E8E00784939 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20563E7E1AB92E8E00784939 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		20563E6A1AB92E8D00784939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20563E761AB92E8E00784939 /* ViewController.swift in Sources */,
+				20563E741AB92E8E00784939 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20563E7C1AB92E8E00784939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20563E871AB92E8E00784939 /* SADServerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		20563E821AB92E8E00784939 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20563E6D1AB92E8D00784939 /* SADServer */;
+			targetProxy = 20563E811AB92E8E00784939 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		20563E791AB92E8E00784939 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				20563E7A1AB92E8E00784939 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		20563E881AB92E8E00784939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		20563E891AB92E8E00784939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		20563E8B1AB92E8E00784939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SADServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		20563E8C1AB92E8E00784939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SADServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		20563E8E1AB92E8E00784939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SADServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SADServer.app/Contents/MacOS/SADServer";
+			};
+			name = Debug;
+		};
+		20563E8F1AB92E8E00784939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SADServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SADServer.app/Contents/MacOS/SADServer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SADServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20563E881AB92E8E00784939 /* Debug */,
+				20563E891AB92E8E00784939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		20563E8A1AB92E8E00784939 /* Build configuration list for PBXNativeTarget "SADServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20563E8B1AB92E8E00784939 /* Debug */,
+				20563E8C1AB92E8E00784939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		20563E8D1AB92E8E00784939 /* Build configuration list for PBXNativeTarget "SADServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20563E8E1AB92E8E00784939 /* Debug */,
+				20563E8F1AB92E8E00784939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20563E661AB92E8D00784939 /* Project object */;
+}
