@@ -1,3 +1,5 @@
+#include "Motor.h"
+
 Motor::Motor(int enablePin, int controlPin1, int controlPin2) {
   this->enablePin = enablePin;
   this->controlPin1 = controlPin1;

@@ -1,7 +1,15 @@
-#include <SoftwareSerial.h>
-#include "Motor.h"
+/* TODO:
+ * class for scan data
+ * class for rangefinder
+ */
 
-// Bluetooth LE
+#include <SoftwareSerial.h>
+#include "CommStation.h"
+#include "Motor.h"
+#include "Rangefinder.h"
+
+
+// Bluetooth LE (KEDSUM)
 #define BT_TX_PIN 12 
 #define BT_RX_PIN 11
 #define BAUD_RATE 9600
@@ -11,109 +19,76 @@
 #define H_CONTROL_PIN_1A 4
 #define H_CONTROL_PIN_1B 5
 
-// Left Motor
+// Left motor
 #define H_ENABLE_PIN_2   3
 #define H_CONTROL_PIN_2A 2
 #define H_CONTROL_PIN_2B 1
 
-SoftwareSerial BluetoothSerial(BT_TX_PIN, BT_RX_PIN);
-Motor rMotor(H_ENABLE_PIN_1, H_CONTROL_PIN_1A, H_CONTROL_PIN_1B);
-Motor lMotor(H_ENABLE_PIN_2, H_CONTROL_PIN_2A, H_CONTROL_PIN_2B);
+// Front rangefinder (SunFounder HC-SR04)
+#define RF1_TRIG_PIN 8
+#define RF1_ECHO_PIN 9
 
-void brake() {
-  rMotor.stop();
-  lMotor.stop();
-}
-
-void moveForward() {
-  rMotor.accelerate();
-  lMotor.accelerate();
-}
-
-void moveForward(int distance) {
-  moveForward();
-  delay(distance);
-  brake();
-}
-
-void moveBackward() {
-  rMotor.reverse();
-  lMotor.reverse();
-}
-
-void moveBackward(int distance) {
-  moveBackward();
-  delay(distance);
-  brake();
-}
-
-void turnRight() {
-  rMotor.reverse();
-  lMotor.accelerate();
-}
-
-void turnRight(int degrees) {
-  turnRight();
-  delay(degrees);
-  brake();
-}
-
-void turnLeft() {
-  rMotor.accelerate();
-  lMotor.reverse();
-}
-
-void turnLeft(int degrees) {
-  turnLeft();
-  delay(degrees);
-  brake();
-}
+CommStation* comm;
+Motor* rMotor;
+Motor* lMotor;
+Rangefinder* fRangefinder;
 
 void setup() {
   // Establish connection with base
-  BluetoothSerial.begin(BAUD_RATE);
+  SoftwareSerial* bluetoothSerial;
+  bluetoothSerial = new SoftwareSerial(BT_TX_PIN, BT_RX_PIN);
+  bluetoothSerial->begin(BAUD_RATE);
+  
+  comm = new CommStation(bluetoothSerial);
 
   // Ready motors
-  rMotor.setSpeed(10);
-  lMotor.setSpeed(10);
+  rMotor = new Motor(H_ENABLE_PIN_1, H_CONTROL_PIN_1A, H_CONTROL_PIN_1B);
+  rMotor->setSpeed(10);
+  
+  lMotor = new Motor(H_ENABLE_PIN_2, H_CONTROL_PIN_2A, H_CONTROL_PIN_2B);
+  lMotor->setSpeed(10);
 
+  // Initialize rangefinders
+  fRangefinder = new Rangefinder(RF1_TRIG_PIN, RF1_ECHO_PIN, 90);
 }
 
 void loop() {
-  if (BluetoothSerial.available()) {
-    // Get next action from base
-    char action = BluetoothSerial.read();
-    
-    // Execute action
-    switch (action) {
-      // Turn on motor
-      case '+':
-        moveForward();
-        BluetoothSerial.write("MOVING FORWARD\n");
-        break;
-        
-      case '=':
-        moveBackward();
-        BluetoothSerial.write("MOVING BACKWARD\n");
-        break;
-      
-      // Turn off motor
-      case '-':
-        brake();
-        BluetoothSerial.write("BRAKING\n");
-        break;
-      
-      // Unrecognized command
-      default:
-        BluetoothSerial.write("UNRECOGNIZED COMMAND\n");
-    }
-    
-    // Scan environment
-    
-    // Send results back to base
-    //BluetoothSerial.write(action);
-    
+  // Execute any available action
+  cmdFuncPtr cmd = comm->getCmd();
+  if (cmd != NULL) {
+    cmd();
   }
   
+  // Scan environment
+  
+  // Send scan data back to base
   
 }
+
+
+// Movement functions
+void brake() {
+  rMotor->stop();
+  lMotor->stop();
+}
+
+void moveForward() {
+  rMotor->accelerate();
+  lMotor->accelerate();
+}
+
+void moveBackward() {
+  rMotor->reverse();
+  lMotor->reverse();
+}
+
+void turnRight() {
+  rMotor->reverse();
+  lMotor->accelerate();
+}
+
+void turnLeft() {
+  rMotor->accelerate();
+  lMotor->reverse();
+}
+
