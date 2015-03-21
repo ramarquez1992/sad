@@ -1,5 +1,5 @@
 /* TODO:
- * CommStation::sendData(Range** data)
+ * 
  */
 
 #include <SoftwareSerial.h>
@@ -24,13 +24,19 @@
 #define H_CONTROL_PIN_2B 1
 
 // Front rangefinder (SunFounder HC-SR04)
-#define RF1_TRIG_PIN 8
-#define RF1_ECHO_PIN 9
+#define FRONT_RF_TRIG_PIN A0
+#define FRONT_RF_ECHO_PIN A1
+#define RIGHT_RF_TRIG_PIN A2
+#define RIGHT_RF_ECHO_PIN A3
+#define LEFT_RF_TRIG_PIN  A4
+#define LEFT_RF_ECHO_PIN  A5
 
 CommStation* comm;
 Motor* rMotor;
 Motor* lMotor;
 Rangefinder* fRangefinder;
+Rangefinder* rRangefinder;
+Rangefinder* lRangefinder;
 
 void brake() {
   rMotor->stop();
@@ -58,9 +64,11 @@ void turnLeft() {
 }
 
 Range** scan() {
-  Range** data = (Range**)malloc(sizeof(Range) * 1);
+  Range** data = new Range*[3];
   
   data[0] = fRangefinder->ping();
+  data[1] = rRangefinder->ping();
+  data[2] = lRangefinder->ping();
   
   return data;
 }
@@ -81,7 +89,9 @@ void setup() {
   lMotor->setSpeed(10);
 
   // Initialize rangefinders
-  fRangefinder = new Rangefinder(RF1_TRIG_PIN, RF1_ECHO_PIN, 90);
+  fRangefinder = new Rangefinder(FRONT_RF_TRIG_PIN, FRONT_RF_ECHO_PIN, 90);
+  rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
+  lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
 }
 
 void loop() {
@@ -96,7 +106,7 @@ void loop() {
   
   // Send scan data back to base
   comm->sendData(data);
-  delete(data);
+  delete[] data;
   
 }
 

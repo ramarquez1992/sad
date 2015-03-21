@@ -15,7 +15,7 @@ public:
   ~CommStation();
   
   cmdFuncPtr getCmd();
-  void sendData(char* data);
+  void sendString(String data);
   void sendData(Range** data);
 
 };

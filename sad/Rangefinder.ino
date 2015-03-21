@@ -10,17 +10,12 @@
    The circuit:
 	* VCC connection of the sensor attached to +5V
 	* GND connection of the sensor attached to ground
-	* TRIG connection of the sensor attached to digital pin 2
-	* ECHO connection of the sensor attached to digital pin 4
+	* TRIG connection of the sensor attached to digital pin X
+	* ECHO connection of the sensor attached to digital pin Y
 
-
-   Original code for Ping))) example was created by David A. Mellis
-   Adapted for HC-SR04 by Tautvidas Sipavicius
-
-   This example code is in the public domain.
  */
  
- #include "Rangefinder.h"
+#include "Rangefinder.h"
 
 Range::Range(int centimeters, int angle) {
   this->centimeters = centimeters;
@@ -66,8 +61,8 @@ int Rangefinder::getCentimeters() {
   // object we take half of the distance travelled.
   int centimeters = getMicroseconds() / 29 / 2;
   
-  // Distance is unreliable past 3ft so report as unobstructed
-  if (centimeters > 100) {
+  // Distance is unreliable past 8ft so report as unobstructed
+  if (centimeters > 250) {
     centimeters = NULL;
   }
   
@@ -80,4 +75,4 @@ int Rangefinder::getAngle() {
 
 void Rangefinder::setAngle(int angle) {
   this->angle = angle;
- }
+}

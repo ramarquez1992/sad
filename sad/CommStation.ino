@@ -15,34 +15,34 @@ cmdFuncPtr CommStation::getCmd() {
       // Move
       case 'f':
         cmd = moveForward;
-        sendData("MOVING FORWARD\n");
+        sendString("MOVING FORWARD\n");
         break;
         
       case 'b':
         cmd = moveBackward;
-        sendData("MOVING BACKWARD\n");
+        sendString("MOVING BACKWARD\n");
         break;
       
       // Turn
       case 'r':
         cmd = turnRight;
-        sendData("TURNING RIGHT\n");
+        sendString("TURNING RIGHT\n");
         break;
         
       case 'l':
         cmd = turnLeft;
-        sendData("TURNING LEFT\n");
+        sendString("TURNING LEFT\n");
         break;
         
       // Turn off motor
       case ' ':
         cmd = brake;
-        sendData("BRAKING\n");
+        sendString("BRAKING\n");
         break;
       
       // Unrecognized command
       default:
-        sendData("UNRECOGNIZED COMMAND\n");
+        sendString("UNRECOGNIZED COMMAND\n");
     }
     
   }
@@ -50,17 +50,20 @@ cmdFuncPtr CommStation::getCmd() {
   return cmd;
 }
 
-void CommStation::sendData(char* data) {
-  serial->write(data);
+void CommStation::sendString(String str) {
+  serial->write(str.c_str());
 }
 
+// Format: "^[number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...$"
 void CommStation::sendData(Range** data) {
-  char* str = "concatenated values";
+  int rangefinderCount = sizeof(data) / sizeof(Range);
+  String str = "^" + rangefinderCount;
   
-  serial->write(str);
-}
-
-CommStation::~CommStation() {
-  //
+  for (int i = 0; i < rangefinderCount; ++i) {
+    str += "|" + String(data[i]->centimeters) + "," + String(data[i]->angle);
+  }
+  
+  str += "$";
+  sendString(str);
 }
 
