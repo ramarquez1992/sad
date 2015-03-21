@@ -1,5 +1,10 @@
 #include "Rangefinder.h"
 
+Range::Range(int distance, int angle) {
+  this->distance = distance;
+  this->angle = angle;
+}
+
 Rangefinder::Rangefinder(int trigPin, int echoPin, int angle) {
   this->trigPin = trigPin;
   this->echoPin = echoPin;
@@ -11,7 +16,11 @@ Rangefinder::Rangefinder(int trigPin, int echoPin, int angle) {
 
 }
 
-int Rangefinder::scan() {
+Range* Rangefinder::scan() {
+  return new Range(getDistance(), getAngle());
+}
+
+int Rangefinder::getTime() {
   int time = 0;
   
   return time;
@@ -19,7 +28,7 @@ int Rangefinder::scan() {
 
 int Rangefinder::getDistance() {
   int distance = 0;  
-  int time = scan();
+  int time = getTime();
   
   // Calculate distance
   distance = time;

@@ -54,6 +54,12 @@ void CommStation::sendData(char* data) {
   serial->write(data);
 }
 
+void CommStation::sendData(Range** data) {
+  char* str = "concatenated values";
+  
+  serial->write(str);
+}
+
 CommStation::~CommStation() {
   //
 }

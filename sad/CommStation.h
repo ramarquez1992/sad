@@ -2,6 +2,7 @@
 #define _COMMSTATION_
 
 #include <SoftwareSerial.h>
+#include "Rangefinder.h"
 
 typedef void (*cmdFuncPtr)();
 
@@ -15,6 +16,7 @@ public:
   
   cmdFuncPtr getCmd();
   void sendData(char* data);
+  void sendData(Range** data);
 
 };
 

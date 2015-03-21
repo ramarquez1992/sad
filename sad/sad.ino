@@ -33,6 +33,39 @@ Motor* rMotor;
 Motor* lMotor;
 Rangefinder* fRangefinder;
 
+void brake() {
+  rMotor->stop();
+  lMotor->stop();
+}
+
+void moveForward() {
+  rMotor->accelerate();
+  lMotor->accelerate();
+}
+
+void moveBackward() {
+  rMotor->reverse();
+  lMotor->reverse();
+}
+
+void turnRight() {
+  rMotor->reverse();
+  lMotor->accelerate();
+}
+
+void turnLeft() {
+  rMotor->accelerate();
+  lMotor->reverse();
+}
+
+Range** scan() {
+  Range** data = (Range**)malloc(sizeof(Range) * 1);
+  
+  data[0] = fRangefinder->scan();
+  
+  return data;
+}
+
 void setup() {
   // Establish connection with base
   SoftwareSerial* bluetoothSerial;
@@ -60,35 +93,13 @@ void loop() {
   }
   
   // Scan environment
+  Range** data = scan();
   
   // Send scan data back to base
+  comm->sendData(data);
+  delete(data);
   
 }
 
 
-// Movement functions
-void brake() {
-  rMotor->stop();
-  lMotor->stop();
-}
-
-void moveForward() {
-  rMotor->accelerate();
-  lMotor->accelerate();
-}
-
-void moveBackward() {
-  rMotor->reverse();
-  lMotor->reverse();
-}
-
-void turnRight() {
-  rMotor->reverse();
-  lMotor->accelerate();
-}
-
-void turnLeft() {
-  rMotor->accelerate();
-  lMotor->reverse();
-}
 
