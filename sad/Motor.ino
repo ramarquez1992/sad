@@ -12,7 +12,7 @@ Motor::Motor(int enablePin, int controlPin1, int controlPin2) {
   setSpeed(10);
 }
 
-void Motor::brake() {
+void Motor::stop() {
   digitalWrite(controlPin1, LOW);
   digitalWrite(controlPin2, LOW);
 }

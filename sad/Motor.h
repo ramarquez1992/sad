@@ -11,7 +11,7 @@ public:
   Motor(int enablePin, int controlPin1, int controlPin2);
   ~Motor();
   
-  void brake();
+  void stop();
   void setSpeed(int speed);
   void accelerate();
   void reverse();

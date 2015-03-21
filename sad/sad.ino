@@ -20,44 +20,53 @@ SoftwareSerial BluetoothSerial(BT_TX_PIN, BT_RX_PIN);
 Motor rMotor(H_ENABLE_PIN_1, H_CONTROL_PIN_1A, H_CONTROL_PIN_1B);
 Motor lMotor(H_ENABLE_PIN_2, H_CONTROL_PIN_2A, H_CONTROL_PIN_2B);
 
-void moveForward(int distance) {
+void brake() {
+  rMotor.stop();
+  lMotor.stop();
+}
+
+void moveForward() {
   rMotor.accelerate();
   lMotor.accelerate();
-  
+}
+
+void moveForward(int distance) {
+  moveForward();
   delay(distance);
-  
-  rMotor.brake();
-  lMotor.brake();
+  brake();
+}
+
+void moveBackward() {
+  rMotor.reverse();
+  lMotor.reverse();
 }
 
 void moveBackward(int distance) {
-  rMotor.reverse();
-  lMotor.reverse();
-  
+  moveBackward();
   delay(distance);
-  
-  rMotor.brake();
-  lMotor.brake();
+  brake();
+}
+
+void turnRight() {
+  rMotor.reverse();
+  lMotor.accelerate();
 }
 
 void turnRight(int degrees) {
-  rMotor.reverse();
-  lMotor.accelerate();
-  
+  turnRight();
   delay(degrees);
-  
-  rMotor.brake();
-  lMotor.brake();
+  brake();
+}
+
+void turnLeft() {
+  rMotor.accelerate();
+  lMotor.reverse();
 }
 
 void turnLeft(int degrees) {
-  rMotor.accelerate();
-  lMotor.reverse();
-  
+  turnLeft();
   delay(degrees);
-  
-  rMotor.brake();
-  lMotor.brake();
+  brake();
 }
 
 void setup() {
@@ -79,19 +88,18 @@ void loop() {
     switch (action) {
       // Turn on motor
       case '+':
-        moveForward(500);
+        moveForward();
         BluetoothSerial.write("MOVING FORWARD\n");
         break;
         
       case '=':
-        moveBackward(500);
+        moveBackward();
         BluetoothSerial.write("MOVING BACKWARD\n");
         break;
       
       // Turn off motor
       case '-':
-        rMotor.brake();
-        lMotor.brake();
+        brake();
         BluetoothSerial.write("BRAKING\n");
         break;
       
