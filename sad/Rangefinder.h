@@ -3,10 +3,10 @@
 
 class Range {
 public:
-  int distance;
+  int centimeters;
   int angle;
   
-  Range(int distance, int angle);
+  Range(int centimeters, int angle);
 };
 
 class Rangefinder {
@@ -15,8 +15,8 @@ private:
   int echoPin;
   int angle;
   
-  int getTime();
-  int getDistance();
+  int getMicroseconds();
+  int getCentimeters();
   int getAngle();
   
 public:
@@ -24,7 +24,7 @@ public:
   ~Rangefinder();
   
 
-  Range* scan();
+  Range* ping();
   void setAngle(int angle);
 
 };

@@ -1,7 +1,29 @@
-#include "Rangefinder.h"
+/* HC-SR04 Sensor
+   https://www.dealextreme.com/p/hc-sr04-ultrasonic-sensor-distance-measuring-module-133696
+  
+   This sketch reads a HC-SR04 ultrasonic rangefinder and returns the
+   distance to the closest object in range. To do this, it sends a pulse
+   to the sensor to initiate a reading, then listens for a pulse 
+   to return.  The length of the returning pulse is proportional to 
+   the distance of the object from the sensor.
+     
+   The circuit:
+	* VCC connection of the sensor attached to +5V
+	* GND connection of the sensor attached to ground
+	* TRIG connection of the sensor attached to digital pin 2
+	* ECHO connection of the sensor attached to digital pin 4
 
-Range::Range(int distance, int angle) {
-  this->distance = distance;
+
+   Original code for Ping))) example was created by David A. Mellis
+   Adapted for HC-SR04 by Tautvidas Sipavicius
+
+   This example code is in the public domain.
+ */
+ 
+ #include "Rangefinder.h"
+
+Range::Range(int centimeters, int angle) {
+  this->centimeters = centimeters;
   this->angle = angle;
 }
 
@@ -12,28 +34,44 @@ Rangefinder::Rangefinder(int trigPin, int echoPin, int angle) {
   
   // Configure sensor
   pinMode(trigPin, OUTPUT);
+  digitalWrite(trigPin, LOW);
+}
+
+Range* Rangefinder::ping() {
+  return new Range(getCentimeters(), getAngle());
+}
+
+int Rangefinder::getMicroseconds() {
+  int microseconds = NULL;
+  
+  // Ensure a clean HIGH pulse
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Send out trigger pulse
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Measure echo
   pinMode(echoPin, INPUT);
-
+  microseconds = pulseIn(echoPin, HIGH);
+  
+  return microseconds;
 }
 
-Range* Rangefinder::scan() {
-  return new Range(getDistance(), getAngle());
-}
-
-int Rangefinder::getTime() {
-  int time = 0;
+int Rangefinder::getCentimeters() {
+  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+  // The ping travels out and back, so to find the distance of the
+  // object we take half of the distance travelled.
+  int centimeters = getMicroseconds() / 29 / 2;
   
-  return time;
-}
-
-int Rangefinder::getDistance() {
-  int distance = 0;  
-  int time = getTime();
+  // Distance is unreliable past 3ft so report as unobstructed
+  if (centimeters > 100) {
+    centimeters = NULL;
+  }
   
-  // Calculate distance
-  distance = time;
-  
-  return distance;
+  return centimeters;
 }
 
 int Rangefinder::getAngle() {

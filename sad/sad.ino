@@ -1,6 +1,5 @@
 /* TODO:
- * class for scan data
- * class for rangefinder
+ * CommStation::sendData(Range** data)
  */
 
 #include <SoftwareSerial.h>
@@ -61,7 +60,7 @@ void turnLeft() {
 Range** scan() {
   Range** data = (Range**)malloc(sizeof(Range) * 1);
   
-  data[0] = fRangefinder->scan();
+  data[0] = fRangefinder->ping();
   
   return data;
 }
