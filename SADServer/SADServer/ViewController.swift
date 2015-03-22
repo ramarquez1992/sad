@@ -23,6 +23,7 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     @IBOutlet weak var sendTextField: NSTextField!
     @IBOutlet var receivedDataTextView: NSTextView!
     @IBOutlet weak var openCloseButton: NSButton!
+    @IBOutlet weak var connectionSettingsButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,10 +61,12 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func serialPortWasOpened(serialPort: ORSSerialPort!) {
         self.openCloseButton.title = "Close"
+        connectionSettingsButton.enabled = true
     }
     
     func serialPortWasClosed(serialPort: ORSSerialPort!) {
         self.openCloseButton.title = "Open"
+        connectionSettingsButton.enabled = false
     }
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {

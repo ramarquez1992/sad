@@ -377,7 +377,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Simultaneous Localization/Mapping Arduino Drone Server" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Simultaneous Localization+Mapping Arduino Drone Server" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="447" y="329" width="913" height="428"/>
@@ -522,7 +522,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="79" id="4r6-D9-3M7"/>
                                             </constraints>
-                                            <buttonCell key="cell" type="push" title="Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEN-Hr-22R">
+                                            <buttonCell key="cell" type="push" title="Settings" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEN-Hr-22R">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -563,6 +563,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectionSettingsButton" destination="FSJ-Me-qvQ" id="Vah-uZ-PyN"/>
                         <outlet property="openCloseButton" destination="3hI-BE-Dm2" id="1It-Yc-3Ai"/>
                         <outlet property="receivedDataTextView" destination="7GX-Sd-V2X" id="YDF-1h-xBH"/>
                         <outlet property="sendTextField" destination="GIH-X6-E0B" id="yYk-60-QYc"/>
