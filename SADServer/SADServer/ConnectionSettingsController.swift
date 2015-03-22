@@ -19,12 +19,6 @@ class ConnectionSettingsController: NSViewController {
         super.viewDidLoad()
                 
     }
-    
-    override var representedObject: AnyObject? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
  
 }
 

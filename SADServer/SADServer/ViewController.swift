@@ -27,21 +27,21 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
     }
     
-    override var representedObject: AnyObject? {
-        didSet {
-            // Update the view, if already loaded.
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ConnectionSettingsView" {
+            var destinationView = segue.destinationController as ConnectionSettingsController
+            destinationView.serialPort = serialPort!;
+            
         }
     }
-    
+
     @IBAction func send(AnyObject) {
         let data = self.sendTextField.stringValue.dataUsingEncoding(NSUTF8StringEncoding)
         self.serialPort?.sendData(data)
         
-        println(serialPort?.baudRate)
-        println(serialPort?.parity.rawValue)
+        self.sendTextField.stringValue = ""
 
     }
     
@@ -69,7 +69,9 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
             self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+            
             self.receivedDataTextView.needsDisplay = true
+            self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
         }
     }
     
@@ -82,13 +84,7 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         println("SerialPort \(serialPort) encountered an error: \(error)")
     }
     
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ConnectionSettingsView" {
-            var destinationView = segue.destinationController as ConnectionSettingsController
-            destinationView.serialPort = serialPort!;
-            
-        }
-    }
+
 
 }
 
