@@ -68,11 +68,28 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+
+            updateReceivedDataTextView(string)
             
-            self.receivedDataTextView.needsDisplay = true
-            self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
+            var RFData = parseRangefinderData(string)
+            addRangefinderDataToMap(RFData)
+            
         }
+    }
+    
+    func updateReceivedDataTextView(string: String) {
+        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+        self.receivedDataTextView.needsDisplay = true
+        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
+    }
+    
+    func parseRangefinderData(string: String) -> String {
+        // Format: "^[number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...$"
+        return string
+    }
+    
+    func addRangefinderDataToMap(RFData: String) {
+        print(RFData)
     }
     
     func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort!) {

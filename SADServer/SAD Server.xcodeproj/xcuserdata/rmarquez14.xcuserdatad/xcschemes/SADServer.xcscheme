@@ -17,7 +17,7 @@
                BlueprintIdentifier = "20563E6D1AB92E8D00784939"
                BuildableName = "SADServer.app"
                BlueprintName = "SADServer"
-               ReferencedContainer = "container:SADServer.xcodeproj">
+               ReferencedContainer = "container:SAD Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "20563E7F1AB92E8E00784939"
                BuildableName = "SADServerTests.xctest"
                BlueprintName = "SADServerTests"
-               ReferencedContainer = "container:SADServer.xcodeproj">
+               ReferencedContainer = "container:SAD Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "20563E7F1AB92E8E00784939"
                BuildableName = "SADServerTests.xctest"
                BlueprintName = "SADServerTests"
-               ReferencedContainer = "container:SADServer.xcodeproj">
+               ReferencedContainer = "container:SAD Server.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "20563E6D1AB92E8D00784939"
             BuildableName = "SADServer.app"
             BlueprintName = "SADServer"
-            ReferencedContainer = "container:SADServer.xcodeproj">
+            ReferencedContainer = "container:SAD Server.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -79,7 +79,7 @@
             BlueprintIdentifier = "20563E6D1AB92E8D00784939"
             BuildableName = "SADServer.app"
             BlueprintName = "SADServer"
-            ReferencedContainer = "container:SADServer.xcodeproj">
+            ReferencedContainer = "container:SAD Server.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,7 +98,7 @@
             BlueprintIdentifier = "20563E6D1AB92E8D00784939"
             BuildableName = "SADServer.app"
             BlueprintName = "SADServer"
-            ReferencedContainer = "container:SADServer.xcodeproj">
+            ReferencedContainer = "container:SAD Server.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -46,6 +46,7 @@
 		20F7EF731ABE39C50002CA84 /* ORSSerialRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialRequest.h; sourceTree = "<group>"; };
 		20F7EF751ABE43D00002CA84 /* ORSSerialRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSSerialRequest.m; sourceTree = "<group>"; };
 		20F7EF771ABE889B0002CA84 /* ConnectionSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionSettingsController.swift; sourceTree = "<group>"; };
+		20F7EF791ABEB2E80002CA84 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +70,7 @@
 		20563E651AB92E8D00784939 = {
 			isa = PBXGroup;
 			children = (
+				20F7EF791ABEB2E80002CA84 /* TODO.md */,
 				20563E701AB92E8D00784939 /* SADServer */,
 				20563E831AB92E8E00784939 /* SADServerTests */,
 				20563E6F1AB92E8D00784939 /* Products */,
@@ -93,17 +95,8 @@
 				20F7EF771ABE889B0002CA84 /* ConnectionSettingsController.swift */,
 				20F7EF741ABE3A020002CA84 /* Resources */,
 				20F7EF721ABE37F90002CA84 /* ORSSerialPort */,
-				20563E711AB92E8D00784939 /* Supporting Files */,
 			);
 			path = SADServer;
-			sourceTree = "<group>";
-		};
-		20563E711AB92E8D00784939 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				20563E721AB92E8E00784939 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		20563E831AB92E8E00784939 /* SADServerTests */ = {
@@ -139,8 +132,9 @@
 		20F7EF741ABE3A020002CA84 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				20563E771AB92E8E00784939 /* Images.xcassets */,
 				20563E791AB92E8E00784939 /* Main.storyboard */,
+				20563E771AB92E8E00784939 /* Images.xcassets */,
+				20563E721AB92E8E00784939 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -201,7 +195,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SADServer" */;
+			buildConfigurationList = 20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SAD Server" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -426,7 +420,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SADServer" */ = {
+		20563E691AB92E8D00784939 /* Build configuration list for PBXProject "SAD Server" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20563E881AB92E8E00784939 /* Debug */,
