@@ -9,7 +9,6 @@ private:
   
 public:
   Motor(int enablePin, int controlPin1, int controlPin2);
-  ~Motor();
   
   void stop();
   void setSpeed(int speed);
@@ -18,3 +17,4 @@ public:
 };
 
 #endif
+

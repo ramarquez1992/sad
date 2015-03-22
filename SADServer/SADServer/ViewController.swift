@@ -8,20 +8,80 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, ORSSerialPortDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override var representedObject: AnyObject? {
+    let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
+    let availableBaudRates = [300, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 57600, 115200, 230400]
+    
+    var serialPort: ORSSerialPort? {
         didSet {
-        // Update the view, if already loaded.
+            oldValue?.close()
+            oldValue?.delegate = nil
+            serialPort?.delegate = self
         }
     }
+    
+    @IBOutlet weak var sendTextField: NSTextField!
+    @IBOutlet var receivedDataTextView: NSTextView!
+    @IBOutlet weak var openCloseButton: NSButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override var representedObject: AnyObject? {
+        didSet {
+            // Update the view, if already loaded.
+        }
+    }
+    
+    @IBAction func send(AnyObject) {
+        let data = self.sendTextField.stringValue.dataUsingEncoding(NSUTF8StringEncoding)
+        self.serialPort?.sendData(data)
+        
+        println(serialPort?.baudRate)
+        println(serialPort?.parity.rawValue)
 
+    }
+    
+    @IBAction func openOrClosePort(sender: AnyObject) {
+        if let port = self.serialPort {
+            if (port.open) {
+                port.close()
+            } else {
+                port.open()
+                self.receivedDataTextView.textStorage?.mutableString.setString("");
+            }
+        }
+    }
+    
+    // MARK: - ORSSerialPortDelegate
+    
+    func serialPortWasOpened(serialPort: ORSSerialPort!) {
+        self.openCloseButton.title = "Close"
+    }
+    
+    func serialPortWasClosed(serialPort: ORSSerialPort!) {
+        self.openCloseButton.title = "Open"
+    }
+    
+    func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
+        if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+            self.receivedDataTextView.needsDisplay = true
+        }
+    }
+    
+    func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort!) {
+        self.serialPort = nil
+        self.openCloseButton.title = "Open"
+    }
+    
+    func serialPort(serialPort: ORSSerialPort!, didEncounterError error: NSError!) {
+        println("SerialPort \(serialPort) encountered an error: \(error)")
+    }
 
 }
 

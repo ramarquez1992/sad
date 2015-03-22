@@ -20,13 +20,11 @@ private:
   int getAngle();
   
 public:
-  Rangefinder(int trigPin, int echoPin, int angle);
-  ~Rangefinder();
-  
+  Rangefinder(int trigPin, int echoPin, int angle);  
 
   Range* ping();
   void setAngle(int angle);
-
 };
 
 #endif
+

@@ -1,12 +1,11 @@
 /* TODO:
- * 
+ * start/stop functions w/ LEDs
  */
 
 #include <SoftwareSerial.h>
 #include "CommStation.h"
 #include "Motor.h"
 #include "Rangefinder.h"
-
 
 // Bluetooth LE (KEDSUM)
 #define BT_TX_PIN 12 
@@ -23,7 +22,7 @@
 #define H_CONTROL_PIN_2A 2
 #define H_CONTROL_PIN_2B 1
 
-// Front rangefinder (SunFounder HC-SR04)
+// Rangefinders (SunFounder HC-SR04)
 #define FRONT_RF_TRIG_PIN A0
 #define FRONT_RF_ECHO_PIN A1
 #define RIGHT_RF_TRIG_PIN A2
@@ -83,10 +82,10 @@ void setup() {
 
   // Ready motors
   rMotor = new Motor(H_ENABLE_PIN_1, H_CONTROL_PIN_1A, H_CONTROL_PIN_1B);
-  rMotor->setSpeed(10);
+  rMotor->setSpeed(5);
   
   lMotor = new Motor(H_ENABLE_PIN_2, H_CONTROL_PIN_2A, H_CONTROL_PIN_2B);
-  lMotor->setSpeed(10);
+  lMotor->setSpeed(5);
 
   // Initialize rangefinders
   fRangefinder = new Rangefinder(FRONT_RF_TRIG_PIN, FRONT_RF_ECHO_PIN, 90);
@@ -109,6 +108,5 @@ void loop() {
   delete[] data;
   
 }
-
 
 

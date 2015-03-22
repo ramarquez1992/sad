@@ -57,13 +57,13 @@ void CommStation::sendString(String str) {
 // Format: "^[number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...$"
 void CommStation::sendData(Range** data) {
   int rangefinderCount = sizeof(data) / sizeof(Range);
-  String str = "^" + rangefinderCount;
+  String str = START_TOKEN + rangefinderCount;
   
   for (int i = 0; i < rangefinderCount; ++i) {
-    str += "|" + String(data[i]->centimeters) + "," + String(data[i]->angle);
+    str += VAL_SET_TOKEN + String(data[i]->centimeters) + VAL_SEPARATOR + String(data[i]->angle);
   }
   
-  str += "$";
+  str += END_TOKEN;
   sendString(str);
 }
 

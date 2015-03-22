@@ -8,11 +8,10 @@
    the distance of the object from the sensor.
      
    The circuit:
-	* VCC connection of the sensor attached to +5V
-	* GND connection of the sensor attached to ground
-	* TRIG connection of the sensor attached to digital pin X
-	* ECHO connection of the sensor attached to digital pin Y
-
+	* VCC attached to +5V
+	* GND attached to ground
+	* TRIG sends pulse
+	* ECHO reads pulse
  */
  
 #include "Rangefinder.h"

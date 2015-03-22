@@ -33,7 +33,3 @@ void Motor::reverse() {
   digitalWrite(controlPin2, HIGH);
 }
 
-Motor::~Motor() {
-  // deconstruct
-}
-
