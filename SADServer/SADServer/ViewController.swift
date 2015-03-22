@@ -11,7 +11,6 @@ import Cocoa
 class ViewController: NSViewController, ORSSerialPortDelegate {
 
     let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
-    let availableBaudRates = [300, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 57600, 115200, 230400]
     
     var serialPort: ORSSerialPort? {
         didSet {
@@ -81,6 +80,14 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didEncounterError error: NSError!) {
         println("SerialPort \(serialPort) encountered an error: \(error)")
+    }
+    
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ConnectionSettingsView" {
+            var destinationView = segue.destinationController as ConnectionSettingsController
+            destinationView.serialPort = serialPort!;
+            
+        }
     }
 
 }
