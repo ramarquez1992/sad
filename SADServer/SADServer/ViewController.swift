@@ -20,10 +20,15 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         }
     }
     
-    @IBOutlet weak var sendTextField: NSTextField!
-    @IBOutlet var receivedDataTextView: NSTextView!
     @IBOutlet weak var openCloseButton: NSButton!
     @IBOutlet weak var connectionSettingsButton: NSButton!
+    @IBOutlet weak var sendTextField: NSTextField!
+    @IBOutlet var receivedDataTextView: NSTextView!
+    
+    @IBOutlet weak var startStopButton: NSButton!
+    @IBOutlet weak var resetButton: NSButton!
+    
+    var RXBuffer: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +42,40 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
             
         }
     }
-
-    @IBAction func send(AnyObject) {
-        let data = self.sendTextField.stringValue.dataUsingEncoding(NSUTF8StringEncoding)
-        self.serialPort?.sendData(data)
+    
+    ///////
+    func gamut() {
+        self.sendStr("f")
+        delay(1) {
+            self.sendStr("r")
+            delay(1) {
+                self.sendStr("l")
+                delay(1) {
+                    self.sendStr(" ")
+                }
+            }
+        }
         
-        self.sendTextField.stringValue = ""
+    }
+    ///////
+    
+    @IBAction func startOrStopSLAM(AnyObject) {
+        //TODO: change conditional to test a 'currentlyRunning' var
+        if (self.startStopButton.title == "START") {
+            println("starting")
+            gamut()
+            
+            self.startStopButton.title = "STOP"
+        } else if (self.startStopButton.title == "STOP") {
+            println("stopping")
+            
+            self.startStopButton.title = "START"
+        }
 
+    }
+    
+    @IBAction func resetMap(AnyObject) {
+        println("resetting")
     }
     
     @IBAction func openOrClosePort(sender: AnyObject) {
@@ -57,16 +89,32 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         }
     }
     
+    func sendStr(string: String) {
+        self.serialPort?.sendData(string.dataUsingEncoding(NSUTF8StringEncoding))
+    }
+    
+    @IBAction func sendManually(AnyObject) {
+        sendStr(self.sendTextField.stringValue)
+        
+        self.sendTextField.stringValue = ""
+    }
+    
     // MARK: - ORSSerialPortDelegate
     
     func serialPortWasOpened(serialPort: ORSSerialPort!) {
         self.openCloseButton.title = "Close"
         connectionSettingsButton.enabled = true
+        
+        self.startStopButton.enabled = true
+        self.resetButton.enabled = true
     }
     
     func serialPortWasClosed(serialPort: ORSSerialPort!) {
         self.openCloseButton.title = "Open"
         connectionSettingsButton.enabled = false
+        
+        self.startStopButton.enabled = false
+        self.resetButton.enabled = false
     }
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
@@ -74,10 +122,26 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
 
             updateReceivedDataTextView(string)
             
-            var RFData = parseRangefinderData(string)
-            addRangefinderDataToMap(RFData)
+            RXBuffer += string
+            
+            if (bufferContainsCompletePacket(RXBuffer)) {
+                var RFData = parseRangefinderData(string)
+                addRangefinderDataToMap(RFData)
+                
+                RXBuffer = ""
+            }
             
         }
+    }
+    
+    func bufferContainsCompletePacket(buffer: String) -> Bool {
+        var result = false
+        
+        if (Array(buffer)[countElements(buffer) - 1] == "$") {
+            result = true
+        }
+        
+        return result
     }
     
     func updateReceivedDataTextView(string: String) {

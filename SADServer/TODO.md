@@ -2,8 +2,10 @@
 
 ---
 
-## UI
-* unnecessary menu options
+## Miscellaneous
+* commands
+* command sets
+* proper delay func for in between cmds
 
 ## Issues
 * 
