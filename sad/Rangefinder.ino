@@ -31,8 +31,49 @@ Rangefinder::Rangefinder(int trigPin, int echoPin, int angle) {
   digitalWrite(trigPin, LOW);
 }
 
-Range Rangefinder::ping() {
+Range Rangefinder::rawPing() {
   return Range(getCentimeters(), getAngle());
+}
+
+int getMean(vector<int> set) {
+  return accumulate(set.begin(), set.end(), 0) / set.size();
+}
+
+int getMedian(vector<int> set) {
+  if (set.size() < 1) {
+    return 0;
+  } 
+  
+  sort(set.begin(), set.end());
+  
+  int median;
+  int middle = set.size() / 2;
+  
+  if (set.size() % 2 == 0) {
+    vector<int> middleSet;
+    middleSet.push_back(set.at(middle));
+    middleSet.push_back(set.at(middle - 1));
+    
+    median = getMean(middleSet);
+  } else {
+    median = set.at(middle);
+  }
+  
+  return median;
+}
+
+int getAvg(vector<int> set) {
+  return getMedian(set);
+}
+
+Range Rangefinder::avgPing() {
+  vector<int> ranges;
+  
+  for (int i = 0; i < PING_AVG_CNT; ++i) {
+    ranges.push_back(getCentimeters());
+  }
+  
+  return Range(getAvg(ranges), getAngle());
 }
 
 int Rangefinder::getMicroseconds() {

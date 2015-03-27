@@ -70,9 +70,9 @@ void turnLeft() {
 vector<Range> scan() {
   vector<Range> data;
   
-  data.push_back(fRangefinder->ping());
-  //data[1] = rRangefinder->ping();
-  //data[2] = lRangefinder->ping();
+  data.push_back(fRangefinder->avgPing());
+  //data.push_back(lRangefinder->avgPing());
+  //data.push_back(rRangefinder->avgPing());
   
   return data;
 }
@@ -106,13 +106,11 @@ void loop() {
     cmd();
   }
     
-  // Scan environment
+  // Range scan and send data back to base
   vector<Range> data = scan();
-  
-  // Send scan data back to base
   comm->sendData(data);
   
-  delay(1000);
+  //delay(200);
 }
 
 
