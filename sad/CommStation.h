@@ -1,13 +1,18 @@
 #ifndef _COMMSTATION_
 #define _COMMSTATION_
 
+#include <StandardCplusplus.h>
+#include <vector>
+
 #include <SoftwareSerial.h>
 #include "Rangefinder.h"
 
-#define START_TOKEN   "^"
+using namespace std;
+
+#define START_TOKEN "("
 #define VAL_SET_TOKEN "|"
 #define VAL_SEPARATOR ","
-#define END_TOKEN     "$"
+#define END_TOKEN ")\n"
 
 typedef void (*cmdFuncPtr)();
 
@@ -20,7 +25,7 @@ public:
   
   cmdFuncPtr getCmd();
   void sendString(String data);
-  void sendData(Range** data);
+  void sendData(vector<Range> data);
 };
 
 #endif

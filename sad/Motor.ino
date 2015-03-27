@@ -11,7 +11,7 @@ Motor::Motor(int enablePin, int controlPin1, int controlPin2) {
   pinMode(controlPin2, OUTPUT);
   
   brake();
-  setSpeed(10);
+  //setSpeed(10);
 }
 
 void Motor::stop() {

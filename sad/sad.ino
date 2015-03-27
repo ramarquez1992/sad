@@ -2,10 +2,15 @@
  * start/stop functions w/ LEDs
  */
 
+#include <StandardCplusplus.h>
+#include <vector>
+
 #include <SoftwareSerial.h>
 #include "CommStation.h"
 #include "Motor.h"
 #include "Rangefinder.h"
+
+using namespace std;
 
 // Bluetooth LE (KEDSUM)
 #define BT_TX_PIN 12 
@@ -13,14 +18,14 @@
 #define BAUD_RATE 9600
 
 // Right motor
-#define H_ENABLE_PIN_1   6
-#define H_CONTROL_PIN_1A 4
-#define H_CONTROL_PIN_1B 5
+#define H_ENABLE_PIN_1   3
+#define H_CONTROL_PIN_1A 2
+#define H_CONTROL_PIN_1B 1
 
 // Left motor
-#define H_ENABLE_PIN_2   3
-#define H_CONTROL_PIN_2A 2
-#define H_CONTROL_PIN_2B 1
+#define H_ENABLE_PIN_2   6
+#define H_CONTROL_PIN_2A 4
+#define H_CONTROL_PIN_2B 5
 
 // Rangefinders (SunFounder HC-SR04)
 #define FRONT_RF_TRIG_PIN A0
@@ -62,12 +67,12 @@ void turnLeft() {
   lMotor->reverse();
 }
 
-Range** scan() {
-  Range** data = new Range*[3];
+vector<Range> scan() {
+  vector<Range> data;
   
-  data[0] = fRangefinder->ping();
-  data[1] = rRangefinder->ping();
-  data[2] = lRangefinder->ping();
+  data.push_back(fRangefinder->ping());
+  //data[1] = rRangefinder->ping();
+  //data[2] = lRangefinder->ping();
   
   return data;
 }
@@ -80,17 +85,18 @@ void setup() {
   
   comm = new CommStation(bluetoothSerial);
 
+  int initialSpeed = 255;
   // Ready motors
   rMotor = new Motor(H_ENABLE_PIN_1, H_CONTROL_PIN_1A, H_CONTROL_PIN_1B);
-  rMotor->setSpeed(5);
+  rMotor->setSpeed(initialSpeed);
   
   lMotor = new Motor(H_ENABLE_PIN_2, H_CONTROL_PIN_2A, H_CONTROL_PIN_2B);
-  lMotor->setSpeed(5);
+  lMotor->setSpeed(initialSpeed);
 
   // Initialize rangefinders
   fRangefinder = new Rangefinder(FRONT_RF_TRIG_PIN, FRONT_RF_ECHO_PIN, 90);
-  rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
-  lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
+  //rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
+  //lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
 }
 
 void loop() {
@@ -99,14 +105,14 @@ void loop() {
   if (cmd != NULL) {
     cmd();
   }
-  
+    
   // Scan environment
-  Range** data = scan();
+  vector<Range> data = scan();
   
   // Send scan data back to base
   comm->sendData(data);
-  delete[] data;
   
+  delay(1000);
 }
 
 

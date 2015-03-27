@@ -62,19 +62,29 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     @IBAction func startOrStopSLAM(AnyObject) {
         //TODO: change conditional to test a 'currentlyRunning' var
         if (self.startStopButton.title == "START") {
-            println("starting")
-            gamut()
-            
-            self.startStopButton.title = "STOP"
+            startSLAM()
         } else if (self.startStopButton.title == "STOP") {
-            println("stopping")
-            
-            self.startStopButton.title = "START"
+            stopSLAM()
         }
 
     }
     
+    func startSLAM() {
+        self.startStopButton.title = "STOP"
+
+        println("starting")
+        gamut()
+    }
+    
+    func stopSLAM() {
+        self.startStopButton.title = "START"
+
+        println("stopping")
+    }
+    
     @IBAction func resetMap(AnyObject) {
+        stopSLAM()
+        
         println("resetting")
     }
     
@@ -82,6 +92,11 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         if let port = self.serialPort {
             if (port.open) {
                 port.close()
+                
+                //TODO: change conditional to test a 'currentlyRunning' var
+                if (self.startStopButton.title == "STOP") {
+                    stopSLAM()
+                }
             } else {
                 port.open()
                 self.receivedDataTextView.textStorage?.mutableString.setString("");

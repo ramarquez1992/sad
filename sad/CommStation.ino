@@ -54,13 +54,14 @@ void CommStation::sendString(String str) {
   serial->write(str.c_str());
 }
 
-// Format: "^[number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...$"
-void CommStation::sendData(Range** data) {
-  int rangefinderCount = sizeof(data) / sizeof(Range);
-  String str = START_TOKEN + rangefinderCount;
+// Format: "([number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...)"
+void CommStation::sendData(vector<Range> data) {
+  int rangefinderCount = data.size();
+  
+  String str = START_TOKEN + String(rangefinderCount);
   
   for (int i = 0; i < rangefinderCount; ++i) {
-    str += VAL_SET_TOKEN + String(data[i]->centimeters) + VAL_SEPARATOR + String(data[i]->angle);
+    str += VAL_SET_TOKEN + String(data[i].centimeters) + VAL_SEPARATOR + String(data[i].angle);
   }
   
   str += END_TOKEN;

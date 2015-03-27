@@ -22,7 +22,7 @@ private:
 public:
   Rangefinder(int trigPin, int echoPin, int angle);  
 
-  Range* ping();
+  Range ping();
   void setAngle(int angle);
 };
 

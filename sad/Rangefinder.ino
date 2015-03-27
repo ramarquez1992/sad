@@ -31,8 +31,8 @@ Rangefinder::Rangefinder(int trigPin, int echoPin, int angle) {
   digitalWrite(trigPin, LOW);
 }
 
-Range* Rangefinder::ping() {
-  return new Range(getCentimeters(), getAngle());
+Range Rangefinder::ping() {
+  return Range(getCentimeters(), getAngle());
 }
 
 int Rangefinder::getMicroseconds() {
@@ -61,7 +61,7 @@ int Rangefinder::getCentimeters() {
   int centimeters = getMicroseconds() / 29 / 2;
   
   // Distance is unreliable past 8ft so report as unobstructed
-  if (centimeters > 250) {
+  if (centimeters > 250 || centimeters < 0) {
     centimeters = NULL;
   }
   
