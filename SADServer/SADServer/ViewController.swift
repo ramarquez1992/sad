@@ -61,22 +61,6 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         }
     }
     
-    ///////
-    func gamut() {
-        self.sendStr("f")
-        delay(1) {
-            self.sendStr("r")
-            delay(1) {
-                self.sendStr("l")
-                delay(1) {
-                    self.sendStr(" ")
-                }
-            }
-        }
-        
-    }
-    ///////
-    
     @IBAction func startOrStopSLAM(AnyObject) {
         //TODO: change conditional to test a 'currentlyRunning' var
         if (self.startStopButton.title == "START") {
@@ -113,8 +97,6 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     @IBAction func resetMap(AnyObject) {
         stopSLAM()
         startSLAM()
-        
-        println("resetting")
     }
     
     func addRangefinderDataToMap(RFData: RangefinderData) {

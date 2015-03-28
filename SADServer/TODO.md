@@ -3,9 +3,10 @@
 ---
 
 ## Miscellaneous
-* commands
-* command sets
-* proper delay func for in between cmds
+* parse packets w/ regex extraction
+* CommStation singleton
+* zoom in/out buttons for mapView
+* calculate inches instead of cm
 
 ## Issues
 * 

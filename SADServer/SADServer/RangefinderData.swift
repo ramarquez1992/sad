@@ -8,12 +8,7 @@
 
 import Foundation
 
-class RangefinderData {
+struct RangefinderData {
     var distance: Int
     var angle: Int
-    
-    init(distance: Int, angle: Int) {
-        self.distance = distance
-        self.angle = angle
-    }
 }

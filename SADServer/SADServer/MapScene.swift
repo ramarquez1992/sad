@@ -27,11 +27,9 @@ class MapScene: SKScene {
         var size = CGSize(width: 5, height: 5)
         
         let point = SKSpriteNode(color: color, size: size)
-        
         point.position = loc
         
         self.addChild(point)
-
     }
 
     
