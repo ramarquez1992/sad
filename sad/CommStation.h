@@ -23,6 +23,7 @@ private:
 public:
   CommStation(SoftwareSerial* serial);
   
+  bool available();
   cmdFuncPtr getCmd();
   void sendString(String data);
   void sendData(vector<Range> data);

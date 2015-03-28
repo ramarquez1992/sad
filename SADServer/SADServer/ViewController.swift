@@ -114,6 +114,13 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         self.sendTextField.stringValue = ""
     }
     
+    func updateReceivedDataTextView(string: String) {
+        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+        self.receivedDataTextView.needsDisplay = true
+        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
+    }
+    
+    
     // MARK: - ORSSerialPortDelegate
     
     func serialPortWasOpened(serialPort: ORSSerialPort!) {
@@ -134,44 +141,40 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-
             updateReceivedDataTextView(string)
             
             RXBuffer += string
             
-            if (bufferContainsCompletePacket(RXBuffer)) {
-                var RFData = parseRangefinderData(string)
-                addRangefinderDataToMap(RFData)
+            while (RXBuffer.rangeOfString("\n") != nil) {
+                if let newlinePos = RXBuffer.rangeOfString("\n")?.startIndex {
+                    var fullCmdRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
+                    var fullCmd = RXBuffer.substringWithRange(fullCmdRange)
+                    
+                    var sensorRange: RangefinderData = parseRangefinderData(fullCmd)
+                    addRangefinderDataToMap(sensorRange)
+
+                    
+                    var remainderRange = Range<String.Index>(start: newlinePos.successor(), end: RXBuffer.endIndex)
+                    var remainder = RXBuffer.substringWithRange(remainderRange)
+                    
+                    RXBuffer = remainder
+
+                }
                 
-                RXBuffer = ""
             }
             
         }
     }
     
-    func bufferContainsCompletePacket(buffer: String) -> Bool {
-        var result = false
+    func parseRangefinderData(cmdStr: String) -> RangefinderData {
+        // Format: "([number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...)"
+        println(cmdStr)
         
-        if (Array(buffer)[countElements(buffer) - 1] == "$") {
-            result = true
-        }
-        
-        return result
+        return RangefinderData(distance: 15, angle: 93)
     }
     
-    func updateReceivedDataTextView(string: String) {
-        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
-        self.receivedDataTextView.needsDisplay = true
-        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
-    }
-    
-    func parseRangefinderData(string: String) -> String {
-        // Format: "^[number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...$"
-        return string
-    }
-    
-    func addRangefinderDataToMap(RFData: String) {
-        print(RFData)
+    func addRangefinderDataToMap(RFData: RangefinderData) {
+        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
     }
     
     func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort!) {

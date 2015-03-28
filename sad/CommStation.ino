@@ -4,6 +4,16 @@ CommStation::CommStation(SoftwareSerial* serial) {
   this->serial = serial;
 }
 
+bool CommStation::available() {
+  bool result = false;
+  
+  if (serial->isListening()) {
+    result = true;
+  }
+  
+  return result;
+}
+
 cmdFuncPtr CommStation::getCmd() {
   cmdFuncPtr cmd = NULL;
   

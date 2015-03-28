@@ -100,16 +100,17 @@ void setup() {
 }
 
 void loop() {
-  // Execute any available action
-  cmdFuncPtr cmd = comm->getCmd();
-  if (cmd != NULL) {
-    cmd();
+  if (comm->available()) {
+    // Execute any available action
+    cmdFuncPtr cmd = comm->getCmd();
+    if (cmd != NULL) {
+      cmd();
+    }
+      
+    // Range scan and send data back to base
+    vector<Range> data = scan();
+    comm->sendData(data);
   }
-    
-  // Range scan and send data back to base
-  vector<Range> data = scan();
-  comm->sendData(data);
-  
   //delay(200);
 }
 
