@@ -7,6 +7,23 @@
 //
 
 import Cocoa
+import SpriteKit
+
+extension SKNode {
+    class func unarchiveFromFile(file : NSString) -> SKNode? {
+        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
+            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
+            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+            
+            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
+            archiver.finishDecoding()
+            return scene
+        } else {
+            return nil
+        }
+    }
+}
 
 class ViewController: NSViewController, ORSSerialPortDelegate {
 
@@ -27,6 +44,7 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     @IBOutlet weak var startStopButton: NSButton!
     @IBOutlet weak var resetButton: NSButton!
+    @IBOutlet weak var mapView: SKView!
     
     var RXBuffer: String = ""
     
@@ -71,9 +89,17 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func startSLAM() {
         self.startStopButton.title = "STOP"
-
-        println("starting")
-        gamut()
+        
+        if let scene = MapScene.unarchiveFromFile("MapScene") as? MapScene {
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            mapView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            mapView.presentScene(scene)
+        }
+        
     }
     
     func stopSLAM() {
@@ -81,11 +107,12 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
 
         self.sendStr(" ")
 
-        println("stopping")
+        mapView.presentScene(nil)
     }
     
     @IBAction func resetMap(AnyObject) {
         stopSLAM()
+        startSLAM()
         
         println("resetting")
     }
