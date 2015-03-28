@@ -9,6 +9,8 @@ bool CommStation::available() {
   
   if (serial->isListening()) {
     result = true;
+  } else {
+    //clear cache
   }
   
   return result;
@@ -25,34 +27,29 @@ cmdFuncPtr CommStation::getCmd() {
       // Move
       case 'f':
         cmd = moveForward;
-        sendString("MOVING FORWARD\n");
         break;
         
       case 'b':
         cmd = moveBackward;
-        sendString("MOVING BACKWARD\n");
         break;
       
       // Turn
       case 'r':
         cmd = turnRight;
-        sendString("TURNING RIGHT\n");
         break;
         
       case 'l':
         cmd = turnLeft;
-        sendString("TURNING LEFT\n");
         break;
         
       // Turn off motor
       case ' ':
         cmd = brake;
-        sendString("BRAKING\n");
         break;
       
       // Unrecognized command
       default:
-        sendString("UNRECOGNIZED COMMAND\n");
+        ;//sendString("UNRECOGNIZED COMMAND\n");
     }
     
   }

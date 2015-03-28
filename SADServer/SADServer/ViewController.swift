@@ -79,6 +79,8 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     func stopSLAM() {
         self.startStopButton.title = "START"
 
+        self.sendStr(" ")
+
         println("stopping")
     }
     
@@ -88,6 +90,19 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         println("resetting")
     }
     
+    func addRangefinderDataToMap(RFData: RangefinderData) {
+        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
+    }
+    
+    func updateReceivedDataTextView(string: String) {
+        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+        self.receivedDataTextView.needsDisplay = true
+        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
+    }
+    
+    
+    // Bluetooth serial communication and parsing
+
     @IBAction func openOrClosePort(sender: AnyObject) {
         if let port = self.serialPort {
             if (port.open) {
@@ -114,15 +129,6 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         self.sendTextField.stringValue = ""
     }
     
-    func updateReceivedDataTextView(string: String) {
-        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
-        self.receivedDataTextView.needsDisplay = true
-        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
-    }
-    
-    
-    // MARK: - ORSSerialPortDelegate
-    
     func serialPortWasOpened(serialPort: ORSSerialPort!) {
         self.openCloseButton.title = "Close"
         connectionSettingsButton.enabled = true
@@ -141,17 +147,17 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            updateReceivedDataTextView(string)
-            
             RXBuffer += string
             
             while (RXBuffer.rangeOfString("\n") != nil) {
                 if let newlinePos = RXBuffer.rangeOfString("\n")?.startIndex {
-                    var fullCmdRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
-                    var fullCmd = RXBuffer.substringWithRange(fullCmdRange)
+                    var fullPacketRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
+                    var fullPacket = RXBuffer.substringWithRange(fullPacketRange)
                     
-                    var sensorRange: RangefinderData = parseRangefinderData(fullCmd)
-                    addRangefinderDataToMap(sensorRange)
+                    var sensors: [RangefinderData] = parsePacket(fullPacket)
+                    for s in sensors {
+                        addRangefinderDataToMap(s)
+                    }
 
                     
                     var remainderRange = Range<String.Index>(start: newlinePos.successor(), end: RXBuffer.endIndex)
@@ -166,15 +172,67 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         }
     }
     
-    func parseRangefinderData(cmdStr: String) -> RangefinderData {
-        // Format: "([number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...)"
-        println(cmdStr)
+    func parsePacket(packet: String) -> [RangefinderData] {
+        // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...)"
+        updateReceivedDataTextView("packet: " + packet + "\n")
         
-        return RangefinderData(distance: 15, angle: 93)
+        var sensorData: [RangefinderData] = []
+        
+        // Exit early if packet is invalid
+        var regex = NSRegularExpression(pattern: "^\\([0-9]+(\\|[0-9]+,[0-9]+)+\\)$", options: nil, error: nil)
+        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, countElements(packet))).location == NSNotFound) {
+            return sensorData
+        }
+        
+        if let firstPipePos = packet.rangeOfString("|")?.startIndex {
+            // Get number of sensors
+            var sensorCountRange = Range<String.Index>(start: packet.startIndex.successor(), end: firstPipePos)
+            var sensorCount: Int = packet.substringWithRange(sensorCountRange).toInt()!
+            
+            // Remove number of sensors
+            var newPacketRange = Range<String.Index>(start: firstPipePos.successor(), end: packet.endIndex)
+            var newPacket = packet.substringWithRange(newPacketRange)
+            
+            // Get all intermediate sensors
+            for (var i = 0; i < (sensorCount - 1); ++i) {
+                if let nextPipePos = newPacket.rangeOfString("|")?.startIndex {
+                    // Get next sensor in packet
+                    var sensorRange = Range<String.Index>(start: newPacket.startIndex, end: nextPipePos)
+                    var sensor = newPacket.substringWithRange(sensorRange)
+                    sensorData.append(parseSensor(sensor))
+                    
+                    // Remove sensor from packet
+                    newPacketRange = Range<String.Index>(start: nextPipePos.successor(), end: newPacket.endIndex)
+                    newPacket = newPacket.substringWithRange(newPacketRange)
+                }
+            }
+            
+            // Get last sensor
+            newPacketRange = Range<String.Index>(start: newPacket.startIndex, end: newPacket.endIndex.predecessor())
+            newPacket = newPacket.substringWithRange(newPacketRange)
+
+            sensorData.append(parseSensor(newPacket))
+
+        }
+        
+        return sensorData
     }
     
-    func addRangefinderDataToMap(RFData: RangefinderData) {
-        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
+    func parseSensor(sensor: String) -> RangefinderData {
+        // Format: "[distance],[angle]"
+        var distance: Int = 0;
+        var angle: Int = 0;
+        
+        if let commaPos = sensor.rangeOfString(",")?.startIndex {
+            var distanceRange = Range<String.Index>(start: sensor.startIndex, end: commaPos)
+            distance = sensor.substringWithRange(distanceRange).toInt()!
+            
+            var angleRange = Range<String.Index>(start: commaPos.successor(), end: sensor.endIndex)
+            angle = sensor.substringWithRange(angleRange).toInt()!
+        }
+
+        
+        return RangefinderData(distance: distance, angle: angle)
     }
     
     func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort!) {
