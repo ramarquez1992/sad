@@ -13,7 +13,7 @@
 		20563E781AB92E8E00784939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20563E771AB92E8E00784939 /* Images.xcassets */; };
 		20563E7B1AB92E8E00784939 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20563E791AB92E8E00784939 /* Main.storyboard */; };
 		20563E871AB92E8E00784939 /* SADServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E861AB92E8E00784939 /* SADServerTests.swift */; };
-		20B03DC61AC7293E0096BD44 /* Notes.md in Sources */ = {isa = PBXBuildFile; fileRef = 20B03DC51AC7293E0096BD44 /* Notes.md */; };
+		20B03DC81AC730080096BD44 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 20B03DC71AC730080096BD44 /* README.md */; };
 		20B8F9481AC647C7001FC4F9 /* RangefinderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8F9471AC647C7001FC4F9 /* RangefinderData.swift */; };
 		20B8F94A1AC6FE43001FC4F9 /* Drone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8F9491AC6FE43001FC4F9 /* Drone.swift */; };
 		20B8F94C1AC7039B001FC4F9 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8F94B1AC7039B001FC4F9 /* VectorMath.swift */; };
@@ -49,7 +49,7 @@
 		20563E801AB92E8E00784939 /* SADServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SADServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20563E851AB92E8E00784939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20563E861AB92E8E00784939 /* SADServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SADServerTests.swift; sourceTree = "<group>"; };
-		20B03DC51AC7293E0096BD44 /* Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
+		20B03DC71AC730080096BD44 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		20B8F9471AC647C7001FC4F9 /* RangefinderData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangefinderData.swift; sourceTree = "<group>"; };
 		20B8F9491AC6FE43001FC4F9 /* Drone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drone.swift; sourceTree = "<group>"; };
 		20B8F94B1AC7039B001FC4F9 /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				20F7EF791ABEB2E80002CA84 /* TODO.md */,
-				20B03DC51AC7293E0096BD44 /* Notes.md */,
+				20B03DC71AC730080096BD44 /* README.md */,
 				20563E701AB92E8D00784939 /* SADServer */,
 				20563E831AB92E8E00784939 /* SADServerTests */,
 				20563E6F1AB92E8D00784939 /* Products */,
@@ -287,9 +287,9 @@
 				20B8F9581AC71915001FC4F9 /* NSColorExtension.swift in Sources */,
 				20B8F94A1AC6FE43001FC4F9 /* Drone.swift in Sources */,
 				20B8F94C1AC7039B001FC4F9 /* VectorMath.swift in Sources */,
-				20B03DC61AC7293E0096BD44 /* Notes.md in Sources */,
 				20B8F9541AC70D04001FC4F9 /* MapScene.swift in Sources */,
 				20F7EF761ABE43D00002CA84 /* ORSSerialRequest.m in Sources */,
+				20B03DC81AC730080096BD44 /* README.md in Sources */,
 				20B8F9561AC7180C001FC4F9 /* SKSceneExtension.swift in Sources */,
 				20B8F9481AC647C7001FC4F9 /* RangefinderData.swift in Sources */,
 			);
