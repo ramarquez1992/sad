@@ -68,11 +68,12 @@ void turnLeft() {
 }
 
 vector<Range> scan() {
+  int totalScans = 10; // 1ms total time
   vector<Range> data;
   
-  data.push_back(fRangefinder->avgPing());
-  //data.push_back(lRangefinder->avgPing());
-  //data.push_back(rRangefinder->avgPing());
+  data.push_back(fRangefinder->avgPing(totalScans));
+  //data.push_back(lRangefinder->avgPing(totalScans));
+  //data.push_back(rRangefinder->avgPing(totalScans));
   
   return data;
 }

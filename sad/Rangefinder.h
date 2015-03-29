@@ -31,7 +31,7 @@ private:
 public:
   Rangefinder(int trigPin, int echoPin, int angle);  
 
-  Range avgPing();
+  Range avgPing(int total);
   Range rawPing();
   void setAngle(int angle);
 };

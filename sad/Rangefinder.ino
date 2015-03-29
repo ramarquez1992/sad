@@ -66,10 +66,10 @@ int getAvg(vector<int> set) {
   return getMedian(set);
 }
 
-Range Rangefinder::avgPing() {
+Range Rangefinder::avgPing(int total) {
   vector<int> ranges;
   
-  for (int i = 0; i < PING_AVG_CNT; ++i) {
+  for (int i = 0; i < total; ++i) {
     ranges.push_back(getCentimeters());
   }
   
