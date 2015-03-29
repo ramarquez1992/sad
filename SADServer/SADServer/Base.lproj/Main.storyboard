@@ -505,7 +505,7 @@
                                                 </menu>
                                             </popUpButtonCell>
                                             <connections>
-                                                <binding destination="XfG-lQ-9wD" name="selectedObject" keyPath="serialPort" previousBinding="3S7-TK-fjq" id="APl-Y4-wVr"/>
+                                                <binding destination="XfG-lQ-9wD" name="selectedObject" keyPath="comm.serialPort" previousBinding="3S7-TK-fjq" id="Iw2-rD-at2"/>
                                                 <binding destination="XfG-lQ-9wD" name="content" keyPath="serialPortManager.availablePorts" id="apW-Ye-77w"/>
                                                 <binding destination="XfG-lQ-9wD" name="contentValues" keyPath="serialPortManager.availablePorts.name" previousBinding="apW-Ye-77w" id="3S7-TK-fjq"/>
                                             </connections>
@@ -678,7 +678,7 @@
                                 </popUpButtonCell>
                                 <connections>
                                     <binding destination="nVL-gz-pEa" name="contentValues" keyPath="availableBaudRates" id="5UI-kE-3Q9"/>
-                                    <binding destination="nVL-gz-pEa" name="selectedObject" keyPath="serialPort.baudRate" previousBinding="5UI-kE-3Q9" id="afc-SX-bXu"/>
+                                    <binding destination="nVL-gz-pEa" name="selectedObject" keyPath="comm.serialPort.baudRate" previousBinding="5UI-kE-3Q9" id="Xjv-7j-l4v"/>
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-cT-EMe">
@@ -713,7 +713,7 @@
                                     </column>
                                 </cells>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="selectedTag" keyPath="serialPort.numberOfStopBits" id="4cF-6n-d9H"/>
+                                    <binding destination="nVL-gz-pEa" name="selectedTag" keyPath="comm.serialPort.numberOfStopBits" id="NbL-LD-9B6"/>
                                 </connections>
                             </matrix>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sZO-Ff-X8q">
@@ -754,7 +754,7 @@
                                     </column>
                                 </cells>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="selectedTag" keyPath="serialPort.parity" id="1ZJ-fr-pqb"/>
+                                    <binding destination="nVL-gz-pEa" name="selectedTag" keyPath="comm.serialPort.parity" id="rz4-8l-GSy"/>
                                 </connections>
                             </matrix>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5y6-tq-qoL">
@@ -778,7 +778,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.shouldEchoReceivedData" id="cDv-5C-FgV"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.shouldEchoReceivedData" id="6dn-Y6-bU1"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1R9-FD-kdm">
@@ -796,7 +796,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.usesRTSCTSFlowControl" id="y2m-R0-RBu"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.usesRTSCTSFlowControl" id="3aL-o7-4wu"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Dqk-pk-Lf5">
@@ -806,7 +806,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.usesDTRDSRFlowControl" id="9h4-y6-mbu"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.usesDTRDSRFlowControl" id="fVm-bL-o8Z"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="OMw-wN-sfu">
@@ -816,7 +816,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.usesDCDOutputFlowControl" id="C6u-VF-4dM"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.usesDCDOutputFlowControl" id="0DB-Xl-EJF"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EwC-0j-mG0">
@@ -848,7 +848,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.RTS" id="Ueu-iQ-OlK"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.RTS" id="bpV-DS-lEi"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="O3h-3x-5So">
@@ -858,7 +858,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.DTR" id="TT1-LR-7rU"/>
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.DTR" id="OmV-WE-TZl"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="aYy-0M-Kgc">
@@ -868,7 +868,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.CTS" id="4Xq-8t-UyF">
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.CTS" id="7Tx-mR-t8G">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         </dictionary>
@@ -882,7 +882,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.DSR" id="lqI-4I-igC">
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.DSR" id="lzx-Qb-OqF">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         </dictionary>
@@ -896,7 +896,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="nVL-gz-pEa" name="value" keyPath="serialPort.DCD" id="fv0-38-MJr">
+                                    <binding destination="nVL-gz-pEa" name="value" keyPath="comm.serialPort.DCD" id="ZyB-G5-cg2">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         </dictionary>

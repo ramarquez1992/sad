@@ -8,7 +8,7 @@
 
 import Foundation
 
-let comm = Comm()
+let _comm = Comm()
 
 protocol CommDelegate {
     func connectionWasOpened();
@@ -92,9 +92,20 @@ class Comm: NSObject, ORSSerialPortDelegate {
         }
     }
     
+    func isOpen() -> Bool {
+        var status = false
+        
+        if let port = self.serialPort {
+            status = port.open
+        }
+        
+        return status
+    }
+    
     func open() {
         if let port = self.serialPort {
             port.open()
+            port.baudRate = 9600
         }
     }
     

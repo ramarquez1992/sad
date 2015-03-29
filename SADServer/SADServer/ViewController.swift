@@ -9,33 +9,10 @@
 import Cocoa
 import SpriteKit
 
-extension SKNode {
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
-    }
-}
-
-class ViewController: NSViewController, ORSSerialPortDelegate {
-
-    let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
+class ViewController: NSViewController, CommDelegate {
     
-    var serialPort: ORSSerialPort? {
-        didSet {
-            oldValue?.close()
-            oldValue?.delegate = nil
-            serialPort?.delegate = self
-        }
-    }
+    let comm = _comm
+    let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
     
     @IBOutlet weak var openCloseButton: NSButton!
     @IBOutlet weak var connectionSettingsButton: NSButton!
@@ -46,19 +23,10 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     @IBOutlet weak var resetButton: NSButton!
     @IBOutlet weak var mapView: SKView!
     
-    var RXBuffer: String = ""
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ConnectionSettingsView" {
-            var destinationView = segue.destinationController as ConnectionSettingsController
-            destinationView.serialPort = serialPort!;
-            
-        }
+        comm.delegate = self
     }
     
     @IBAction func startOrStopSLAM(AnyObject) {
@@ -89,7 +57,7 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
     func stopSLAM() {
         self.startStopButton.title = "START"
 
-        self.sendStr(" ")
+        comm.sendStr(" ")
 
         mapView.presentScene(nil)
     }
@@ -103,42 +71,35 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
     }
     
+    @IBAction func sendManually(AnyObject) {
+        comm.sendStr(self.sendTextField.stringValue)
+        
+        self.sendTextField.stringValue = ""
+    }
+    
     func updateReceivedDataTextView(string: String) {
         self.receivedDataTextView.textStorage?.mutableString.appendString(string)
         self.receivedDataTextView.needsDisplay = true
         self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
     }
     
-    
-    // Bluetooth serial communication and parsing
-
     @IBAction func openOrClosePort(sender: AnyObject) {
-        if let port = self.serialPort {
-            if (port.open) {
-                port.close()
-                
-                //TODO: change conditional to test a 'currentlyRunning' var
-                if (self.startStopButton.title == "STOP") {
-                    stopSLAM()
-                }
-            } else {
-                port.open()
-                self.receivedDataTextView.textStorage?.mutableString.setString("");
+        if (comm.isOpen()) {
+            comm.close()
+            
+            if (self.startStopButton.title == "STOP") {
+                stopSLAM()
             }
+        } else {
+            comm.open()
+            self.receivedDataTextView.textStorage?.mutableString.setString("");
         }
     }
     
-    func sendStr(string: String) {
-        self.serialPort?.sendData(string.dataUsingEncoding(NSUTF8StringEncoding))
-    }
+
+    // MARK: CommDelegate
     
-    @IBAction func sendManually(AnyObject) {
-        sendStr(self.sendTextField.stringValue)
-        
-        self.sendTextField.stringValue = ""
-    }
-    
-    func serialPortWasOpened(serialPort: ORSSerialPort!) {
+    func connectionWasOpened() {
         self.openCloseButton.title = "Close"
         connectionSettingsButton.enabled = true
         
@@ -146,7 +107,7 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         self.resetButton.enabled = true
     }
     
-    func serialPortWasClosed(serialPort: ORSSerialPort!) {
+    func connectionWasClosed() {
         self.openCloseButton.title = "Open"
         connectionSettingsButton.enabled = false
         
@@ -154,106 +115,34 @@ class ViewController: NSViewController, ORSSerialPortDelegate {
         self.resetButton.enabled = false
     }
     
-    func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
-        if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            RXBuffer += string
-            
-            while (RXBuffer.rangeOfString("\n") != nil) {
-                if let newlinePos = RXBuffer.rangeOfString("\n")?.startIndex {
-                    var fullPacketRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
-                    var fullPacket = RXBuffer.substringWithRange(fullPacketRange)
-                    
-                    var sensors: [RangefinderData] = parsePacket(fullPacket)
-                    for s in sensors {
-                        addRangefinderDataToMap(s)
-                    }
-
-                    
-                    var remainderRange = Range<String.Index>(start: newlinePos.successor(), end: RXBuffer.endIndex)
-                    var remainder = RXBuffer.substringWithRange(remainderRange)
-                    
-                    RXBuffer = remainder
-
-                }
-                
-            }
-            
+    func didReceivePacket(data: [RangefinderData]) {
+        for sensor in data {
+            addRangefinderDataToMap(sensor)
         }
     }
-    
-    func parsePacket(packet: String) -> [RangefinderData] {
-        // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...)"
-        updateReceivedDataTextView("packet: " + packet + "\n")
-        
-        var sensorData: [RangefinderData] = []
-        
-        // Exit early if packet is invalid
-        var regex = NSRegularExpression(pattern: "^\\([0-9]+(\\|[0-9]+,[0-9]+)+\\)$", options: nil, error: nil)
-        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, countElements(packet))).location == NSNotFound) {
-            return sensorData
+
+    /*override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ConnectionSettingsView" {
+            var destinationView = segue.destinationController as ConnectionSettingsController
+            destinationView.serialPort = serialPort!;
+            
         }
-        
-        if let firstPipePos = packet.rangeOfString("|")?.startIndex {
-            // Get number of sensors
-            var sensorCountRange = Range<String.Index>(start: packet.startIndex.successor(), end: firstPipePos)
-            var sensorCount: Int = packet.substringWithRange(sensorCountRange).toInt()!
-            
-            // Remove number of sensors
-            var newPacketRange = Range<String.Index>(start: firstPipePos.successor(), end: packet.endIndex)
-            var newPacket = packet.substringWithRange(newPacketRange)
-            
-            // Get all intermediate sensors
-            for (var i = 0; i < (sensorCount - 1); ++i) {
-                if let nextPipePos = newPacket.rangeOfString("|")?.startIndex {
-                    // Get next sensor in packet
-                    var sensorRange = Range<String.Index>(start: newPacket.startIndex, end: nextPipePos)
-                    var sensor = newPacket.substringWithRange(sensorRange)
-                    sensorData.append(parseSensor(sensor))
-                    
-                    // Remove sensor from packet
-                    newPacketRange = Range<String.Index>(start: nextPipePos.successor(), end: newPacket.endIndex)
-                    newPacket = newPacket.substringWithRange(newPacketRange)
-                }
-            }
-            
-            // Get last sensor
-            newPacketRange = Range<String.Index>(start: newPacket.startIndex, end: newPacket.endIndex.predecessor())
-            newPacket = newPacket.substringWithRange(newPacketRange)
+    }*/
+}
 
-            sensorData.append(parseSensor(newPacket))
-
+extension SKNode {
+    class func unarchiveFromFile(file : NSString) -> SKNode? {
+        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
+            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
+            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+            
+            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
+            archiver.finishDecoding()
+            return scene
+        } else {
+            return nil
         }
-        
-        return sensorData
     }
-    
-    func parseSensor(sensor: String) -> RangefinderData {
-        // Format: "[distance],[angle]"
-        var distance: Int = 0;
-        var angle: Int = 0;
-        
-        if let commaPos = sensor.rangeOfString(",")?.startIndex {
-            var distanceRange = Range<String.Index>(start: sensor.startIndex, end: commaPos)
-            distance = sensor.substringWithRange(distanceRange).toInt()!
-            
-            var angleRange = Range<String.Index>(start: commaPos.successor(), end: sensor.endIndex)
-            angle = sensor.substringWithRange(angleRange).toInt()!
-        }
-
-        
-        return RangefinderData(distance: distance, angle: angle)
-    }
-    
-    func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort!) {
-        self.serialPort = nil
-        self.openCloseButton.title = "Open"
-    }
-    
-    func serialPort(serialPort: ORSSerialPort!, didEncounterError error: NSError!) {
-        println("SerialPort \(serialPort) encountered an error: \(error)")
-    }
-    
-
-
 }
 
