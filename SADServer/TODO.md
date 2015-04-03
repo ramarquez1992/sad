@@ -3,10 +3,11 @@
 ---
 
 ## Miscellaneous
-* parse packets w/ regex extraction
-* CommStation singleton
-* zoom in/out buttons for mapView
 * calculate inches instead of cm
+* parse packets w/ regex extraction
+* contol panel (readings, !commands)
+* zoom in/out buttons for mapView
+* grid on map
 
 ## Issues
 * 

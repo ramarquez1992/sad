@@ -6,20 +6,29 @@
 //  Copyright (c) 2015 Richard Marquez. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 class MapScene: SKScene {
+    
     override func didMoveToView(view: SKView) {
         addRandomPoints()
     }
     
+    override func update(currentTime: CFTimeInterval) {
+        /* Called before each frame is rendered */
+    }
+    
+    // MARK: -
     func addRandomPoints() {
         addPoint(getRandomPosition())
         
         delay(1) {
             self.addRandomPoints()
         }
+    }
+    
+    func addPoint(RFData: RangefinderData) {
+        // TODO:
     }
     
     func addPoint(loc: CGPoint) {
@@ -32,8 +41,4 @@ class MapScene: SKScene {
         self.addChild(point)
     }
 
-    
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    }
 }

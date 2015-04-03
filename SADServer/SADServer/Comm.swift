@@ -10,15 +10,21 @@ import Foundation
 
 let _comm = Comm()
 
+// MARK: CommDelegate
 protocol CommDelegate {
     func connectionWasOpened();
     func connectionWasClosed();
     func didReceivePacket(data: [RangefinderData]);
 }
 
+// MARK: -
 class Comm: NSObject, ORSSerialPortDelegate {
     var delegate: CommDelegate?
-    var RXBuffer: String = ""
+    private var RXBuffer: String = ""
+    
+    class func getInstance() -> Comm {
+        return _comm
+    }
     
     func parsePacket(packet: String) -> [RangefinderData] {
         // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...)"
@@ -68,7 +74,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
         // Format: "[distance],[angle]"
         var distance: Int = 0;
         var angle: Int = 0;
-        
+
         if let commaPos = sensor.rangeOfString(",")?.startIndex {
             var distanceRange = Range<String.Index>(start: sensor.startIndex, end: commaPos)
             distance = sensor.substringWithRange(distanceRange).toInt()!
@@ -82,7 +88,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
     }
 
     
-    // ORSSerialPort communication
+    // MARK: - ORSSerialPort
     let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
     var serialPort: ORSSerialPort? {
         didSet {

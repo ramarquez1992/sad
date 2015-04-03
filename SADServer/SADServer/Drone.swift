@@ -9,23 +9,22 @@
 import Foundation
 
 class Drone {
+    
+    let comm = Comm.getInstance()
     var location: CGPoint = CGPoint(x: 0, y: 0)
-    var heading:  Int     = 0                       // North is 0 degrees
-    var moving:   Bool    = false
+    var heading: Int = Compass.NORTH
+    var moving: Bool = false
     
     init() {
         //
     }
     
     func moveForward(distance: Int) {
-        //
+        // TODO:
     }
     
     func turnRight(degrees: Int) {
-        //
+        // TODO:
     }
     
-    func sendCmd(cmd: String) {
-        //comm.sendStr(cmd)
-    }
 }

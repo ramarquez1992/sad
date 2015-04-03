@@ -9,6 +9,7 @@
 import SpriteKit
 
 extension SKScene {
+    
     func getRandomPosition(fromPoint: CGPoint = CGPoint(), minDistance: CGFloat = 0.0) -> CGPoint {
         var possiblePosition: CGPoint
         var possibleLength: CGFloat
@@ -31,4 +32,5 @@ extension SKScene {
         
         return facingDirection
     }
+    
 }

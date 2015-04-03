@@ -11,7 +11,7 @@ import SpriteKit
 
 class ViewController: NSViewController, CommDelegate {
     
-    let comm = _comm
+    let comm = Comm.getInstance()
     let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
     
     @IBOutlet weak var openCloseButton: NSButton!
@@ -29,64 +29,12 @@ class ViewController: NSViewController, CommDelegate {
         comm.delegate = self
     }
     
-    @IBAction func startOrStopSLAM(AnyObject) {
-        //TODO: change conditional to test a 'currentlyRunning' var
-        if (self.startStopButton.title == "START") {
-            startSLAM()
-        } else if (self.startStopButton.title == "STOP") {
-            stopSLAM()
-        }
-
-    }
-    
-    func startSLAM() {
-        self.startStopButton.title = "STOP"
-        
-        if let scene = MapScene.unarchiveFromFile("MapScene") as? MapScene {
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            mapView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            mapView.presentScene(scene)
-        }
-        
-    }
-    
-    func stopSLAM() {
-        self.startStopButton.title = "START"
-
-        comm.sendStr(" ")
-
-        mapView.presentScene(nil)
-    }
-    
-    @IBAction func resetMap(AnyObject) {
-        stopSLAM()
-        startSLAM()
-    }
-    
-    func addRangefinderDataToMap(RFData: RangefinderData) {
-        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
-    }
-    
-    @IBAction func sendManually(AnyObject) {
-        comm.sendStr(self.sendTextField.stringValue)
-        
-        self.sendTextField.stringValue = ""
-    }
-    
-    func updateReceivedDataTextView(string: String) {
-        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
-        self.receivedDataTextView.needsDisplay = true
-        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
-    }
-    
+    // MARK: - IBAction
     @IBAction func openOrClosePort(sender: AnyObject) {
         if (comm.isOpen()) {
             comm.close()
             
+            // Stop drone if currently running
             if (self.startStopButton.title == "STOP") {
                 stopSLAM()
             }
@@ -96,9 +44,59 @@ class ViewController: NSViewController, CommDelegate {
         }
     }
     
-
-    // MARK: CommDelegate
+    @IBAction func sendManually(AnyObject) {
+        comm.sendStr(self.sendTextField.stringValue)
+        
+        self.sendTextField.stringValue = ""
+    }
     
+    @IBAction func startOrStopSLAM(AnyObject) {
+        // TODO: change conditional to test a 'currentlyRunning' var
+        if (self.startStopButton.title == "START") {
+            startSLAM()
+        } else if (self.startStopButton.title == "STOP") {
+            stopSLAM()
+        }
+    }
+    
+    @IBAction func resetMap(AnyObject) {
+        stopSLAM()
+        startSLAM()
+    }
+    
+    // MARK: -
+    func startSLAM() {
+        self.startStopButton.title = "STOP"
+        
+        if let scene = MapScene.unarchiveFromFile("MapScene") as? MapScene {
+            mapView.ignoresSiblingOrder = true      // Sprite Kit rendering performance optimizations
+            scene.scaleMode = .AspectFill           // Set the scale mode to scale to fit the window
+            
+            mapView.presentScene(scene)
+        }
+    }
+    
+    func stopSLAM() {
+        comm.sendStr(" ")       // Stop drone
+
+        self.startStopButton.title = "START"
+        mapView.presentScene(nil)
+    }
+    
+    func addRangefinderDataToMap(RFData: RangefinderData) {
+        // TODO: actually add to map
+        //(mapView.scene as MapScene).addPoint(RFData)
+        
+        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
+    }
+    
+    func updateReceivedDataTextView(string: String) {
+        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+        self.receivedDataTextView.needsDisplay = true
+        self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
+    }
+    
+    // MARK: - CommDelegate
     func connectionWasOpened() {
         self.openCloseButton.title = "Close"
         connectionSettingsButton.enabled = true
@@ -130,7 +128,9 @@ class ViewController: NSViewController, CommDelegate {
     }*/
 }
 
+// MARK: -
 extension SKNode {
+    
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
             var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
@@ -144,5 +144,6 @@ extension SKNode {
             return nil
         }
     }
+    
 }
 

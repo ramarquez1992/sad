@@ -9,6 +9,7 @@
 import Cocoa
 
 extension NSColor {
+    
     convenience init(rgb: UInt) {
         self.init(red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgb & 0x00FF00) >> 8) / 255.0,
@@ -42,4 +43,5 @@ extension NSColor {
             blue: CGFloat(Float(b) / 255.0),
             alpha: CGFloat(1))
     }
+    
 }

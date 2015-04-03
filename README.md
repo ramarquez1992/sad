@@ -33,3 +33,8 @@ Autonomous drone to map 2D space.
 
 * ultrasonic sensor latency
 1. disrupts server communication
+2. only scan when not expecting anything from server?
+3. laser rangefinders eventually?
+
+* imperfect chassis throws drone off course
+1. built in course-correction w/ magnetometer 

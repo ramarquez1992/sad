@@ -15,4 +15,5 @@ func delay(secs: Double, closure: () -> ()) {
     dispatch_after(time, dispatch_get_main_queue(), {
         closure()
     })
+    
 }
