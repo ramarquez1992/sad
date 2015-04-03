@@ -70,7 +70,7 @@ Range Rangefinder::avgPing(int total) {
   vector<int> ranges;
   
   for (int i = 0; i < total; ++i) {
-    ranges.push_back(getCentimeters());
+    ranges.push_back(getInches());
   }
   
   return Range(getAvg(ranges), getAngle());
@@ -107,6 +107,10 @@ int Rangefinder::getCentimeters() {
   }
   
   return centimeters;
+}
+
+int Rangefinder::getInches() {
+  return getCentimeters() / 2.54;
 }
 
 int Rangefinder::getAngle() {

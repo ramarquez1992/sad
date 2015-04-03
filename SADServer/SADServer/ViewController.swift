@@ -87,7 +87,7 @@ class ViewController: NSViewController, CommDelegate {
         // TODO: actually add to map
         //(mapView.scene as MapScene).addPoint(RFData)
         
-        println("cm: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
+        println("inches: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
     }
     
     func updateReceivedDataTextView(string: String) {

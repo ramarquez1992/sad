@@ -26,6 +26,7 @@ private:
   
   int getMicroseconds();
   int getCentimeters();
+  int getInches();
   int getAngle();
   
 public:
