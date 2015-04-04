@@ -7,25 +7,31 @@
 //
 
 import Foundation
+import SpriteKit
 
-class Drone {
+class Drone: SKSpriteNode {
     
     let comm = Comm.getInstance()
     
-    var location: CGPoint = CGPoint(x: 0, y: 0)
     var heading: Int = Compass.NORTH
     var moving: Bool = false
     
-    init() {
-        //
+    override init() {
+        var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as String)
+        var spriteSize = CGSize(width: (Config.get("droneSpriteSize") as CGFloat) * (Config.get("droneSpriteRatio") as CGFloat),
+            height: Config.get("droneSpriteSize") as CGFloat)
+        
+        super.init(texture: nil, color: spriteColor, size: spriteSize)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func moveForward(distance: Int) {
-        // TODO:
-    }
-    
-    func turnRight(degrees: Int) {
-        // TODO:
+    func reset(loc: CGPoint) {
+        heading = Compass.NORTH
+        moving = false
+        position = loc
     }
     
 }

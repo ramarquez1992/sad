@@ -12,6 +12,7 @@ class MapScene: SKScene {
 
     var origin = CGPoint()
     var obstacles = [CGPoint]()
+    var drone = Drone()
     
     override func didMoveToView(view: SKView) {
         origin = CGPoint(x: CGFloat(size.width) / 2, y: CGFloat(size.height) / 2)
@@ -28,6 +29,9 @@ class MapScene: SKScene {
         obstacles.removeAll()
         
         drawGrid()
+        
+        drone.reset(origin)
+        self.addChild(drone)
     }
     
     // MARK: - Grid display
