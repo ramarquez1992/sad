@@ -98,7 +98,11 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     func updateReceivedDataTextView(string: String) {
-        self.receivedDataTextView.textStorage?.mutableString.appendString(string)
+        var df = NSDateFormatter()
+        df.dateFormat = "[kk:mm:ss]  "
+        var date = df.stringFromDate(NSDate())
+        
+        self.receivedDataTextView.textStorage?.mutableString.appendString(date + string)
         self.receivedDataTextView.needsDisplay = true
         self.receivedDataTextView.scrollToEndOfDocument(self.receivedDataTextView)
     }
@@ -121,8 +125,7 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     func didReceivePacket(data: [RangefinderData], rawPacket: String) {
-        // TODO: add timestamp and newline to rawPacket
-        updateReceivedDataTextView(rawPacket)
+        updateReceivedDataTextView(rawPacket + "\n")
         updateRangefinderViews(data)
 
         for sensor in data {
