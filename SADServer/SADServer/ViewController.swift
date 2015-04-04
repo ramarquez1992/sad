@@ -27,6 +27,10 @@ class ViewController: NSViewController, CommDelegate {
     @IBOutlet weak var fRangefinderTextField: NSTextField!
     @IBOutlet weak var rRangefinderTextField: NSTextField!
     
+    @IBOutlet weak var speedTextField: NSTextField!
+    @IBOutlet weak var headingTextField: NSTextField!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,6 +109,14 @@ class ViewController: NSViewController, CommDelegate {
         self.fRangefinderTextField.stringValue = String(RFData[0].distance) + "\""
     }
     
+    func updateSpeedView(speed: Int) {
+        self.speedTextField.stringValue = String(speed) + "\"/s"
+    }
+    
+    func updateHeadingView(heading: Int) {
+        self.headingTextField.stringValue = String(heading) + "°"
+    }
+    
     func updateReceivedDataTextView(string: String) {
         var df = NSDateFormatter()
         df.dateFormat = "[kk:mm:ss]  "
@@ -135,6 +147,8 @@ class ViewController: NSViewController, CommDelegate {
     func didReceivePacket(data: [RangefinderData], rawPacket: String) {
         updateReceivedDataTextView(rawPacket + "\n")
         updateRangefinderViews(data)
+        updateSpeedView(2)      // TODO: use real data
+        updateHeadingView(90)   // TODO: use real data
 
         for sensor in data {
             addRangefinderDataToMap(sensor)

@@ -8,3 +8,4 @@
 
 ## Issues
 * inches calculation on drone
+* ReceivedDataTextView will likely overflow
