@@ -2,9 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ptColor</key>
-	<string>00ff00</string>
+	<key>gridSize</key>
+	<integer>20</integer>
+	<key>gridWidth</key>
+	<real>0.2</real>
+	<key>gridColor</key>
+	<string>555555</string>
+	<key>axisWidth</key>
+	<real>0.5</real>
+	<key>axisColor</key>
+	<string>ffffff</string>
 	<key>ptSize</key>
 	<integer>3</integer>
+	<key>ptColor</key>
+	<string>00ff00</string>
 </dict>
 </plist>

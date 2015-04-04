@@ -11,6 +11,7 @@ import Foundation
 class Drone {
     
     let comm = Comm.getInstance()
+    
     var location: CGPoint = CGPoint(x: 0, y: 0)
     var heading: Int = Compass.NORTH
     var moving: Bool = false

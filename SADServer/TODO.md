@@ -1,10 +1,7 @@
 # Todo List
 
----
-
 ## Miscellaneous
 * do longer scans on background thread -> send when completed -> start new scan
-* grid on map
 * Packet class w/ rangefinder data, magnetometer, etc.
 * heading autocorrection w/ magnetometer
 
