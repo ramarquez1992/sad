@@ -25,68 +25,114 @@ class Comm: NSObject, ORSSerialPortDelegate {
     class func getInstance() -> Comm {
         return _comm
     }
-    
+
+    // MARK: - Packet parsing
     func parsePacket(packet: String) -> [RangefinderData] {
         // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...)"
         var sensorData: [RangefinderData] = []
         
-        // Exit early if packet is invalid
-        var regex = NSRegularExpression(pattern: "^\\([0-9]+(\\|[0-9]+,[0-9]+)+\\)$", options: nil, error: nil)
-        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, countElements(packet))).location == NSNotFound) {
+        if (!isValidPacket(packet)) {
             return sensorData
         }
         
-        if let firstPipePos = packet.rangeOfString("|")?.startIndex {
-            // Get number of sensors
-            var sensorCountRange = Range<String.Index>(start: packet.startIndex.successor(), end: firstPipePos)
-            var sensorCount: Int = packet.substringWithRange(sensorCountRange).toInt()!
-            
-            // Remove number of sensors
-            var newPacketRange = Range<String.Index>(start: firstPipePos.successor(), end: packet.endIndex)
-            var newPacket = packet.substringWithRange(newPacketRange)
-            
-            // Get all intermediate sensors
-            for (var i = 0; i < (sensorCount - 1); ++i) {
-                if let nextPipePos = newPacket.rangeOfString("|")?.startIndex {
-                    // Get next sensor in packet
-                    var sensorRange = Range<String.Index>(start: newPacket.startIndex, end: nextPipePos)
-                    var sensor = newPacket.substringWithRange(sensorRange)
-                    sensorData.append(parseSensor(sensor))
-                    
-                    // Remove sensor from packet
-                    newPacketRange = Range<String.Index>(start: nextPipePos.successor(), end: newPacket.endIndex)
-                    newPacket = newPacket.substringWithRange(newPacketRange)
-                }
-            }
-            
-            // Get last sensor
-            newPacketRange = Range<String.Index>(start: newPacket.startIndex, end: newPacket.endIndex.predecessor())
-            newPacket = newPacket.substringWithRange(newPacketRange)
-            
-            sensorData.append(parseSensor(newPacket))
-            
+        // Get each individual sensor
+        var sensors = separateSensors(packet)
+        for s in sensors {
+            sensorData.append(parseSensor(s))
         }
         
         return sensorData
     }
     
-    func parseSensor(sensor: String) -> RangefinderData {
-        // Format: "[distance],[angle]"
-        var distance: Int = 0;
-        var angle: Int = 0;
-
-        if let commaPos = sensor.rangeOfString(",")?.startIndex {
-            var distanceRange = Range<String.Index>(start: sensor.startIndex, end: commaPos)
-            distance = sensor.substringWithRange(distanceRange).toInt()!
-            
-            var angleRange = Range<String.Index>(start: commaPos.successor(), end: sensor.endIndex)
-            angle = sensor.substringWithRange(angleRange).toInt()!
+    private func isValidPacket(packet: String) -> Bool {
+        var result = false
+        
+        let fullPattern = "^\\([0-9]+(\\|[0-9]+,[0-9]+)+\\)$"
+        let regex = NSRegularExpression(pattern: fullPattern, options: nil, error: nil)
+        
+        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, countElements(packet))).location != NSNotFound) {
+            result = true
         }
         
+        return result
+    }
+    
+    private func separateSensors(packet: String) -> [String] {
+        var sensors = [String]()
+        
+        let sensorPattern = "\\|([0-9]+,[0-9]+)(.*)"
+        let regex = NSRegularExpression(pattern: sensorPattern, options: nil, error: nil)
+        
+        let sensorCount = getSensorCount(packet)
+        var remainder = getAllSensors(packet)
+
+        for (var i = 0; i < sensorCount; ++i) {
+            
+            var firstSensor = regex!.stringByReplacingMatchesInString(remainder,
+                options: nil,
+                range: NSRange(location: 0, length: countElements(remainder)),
+                withTemplate: "$1")
+            sensors.append(firstSensor)
+            
+            remainder = regex!.stringByReplacingMatchesInString(remainder,
+                options: nil,
+                range: NSRange(location: 0, length: countElements(remainder)),
+                withTemplate: "$2")
+            
+        }
+        
+        return sensors
+    }
+    
+    private func getSensorCount(packet: String) -> Int {
+        var sensorCount = 0
+        
+        let sensorCountPattern = "^\\(([0-9]+)(\\|[0-9]+,[0-9]+)+\\)$"
+        let regex = NSRegularExpression(pattern: sensorCountPattern, options: nil, error: nil)
+        
+        sensorCount = regex!.stringByReplacingMatchesInString(packet,
+            options: nil,
+            range: NSRange(location: 0, length: countElements(packet)),
+            withTemplate: "$1").toInt()!
+        
+        return sensorCount
+    }
+    
+    private func getAllSensors(packet: String) -> String {
+        var allSensors: String
+        
+        let allSensorsPattern = "^\\([0-9]+((\\|[0-9]+,[0-9]+)+)\\)$"
+        let regex = NSRegularExpression(pattern: allSensorsPattern, options: nil, error: nil)
+        
+        allSensors = regex!.stringByReplacingMatchesInString(packet,
+            options: nil,
+            range: NSRange(location: 0, length: countElements(packet)),
+            withTemplate: "$1")
+        
+        return allSensors
+    }
+    
+    private func parseSensor(sensor: String) -> RangefinderData {
+        // Format: "[distance],[angle]"
+        var distance = 0
+        var angle = 0
+
+        let sensorPattern = "([0-9]+),([0-9]+)"
+        let regex = NSRegularExpression(pattern: sensorPattern, options: nil, error: nil)
+        
+        distance = regex!.stringByReplacingMatchesInString(sensor,
+            options: nil,
+            range: NSRange(location: 0, length: countElements(sensor)),
+            withTemplate: "$1").toInt()!
+        
+        angle = regex!.stringByReplacingMatchesInString(sensor,
+            options: nil,
+            range: NSRange(location: 0, length: countElements(sensor)),
+            withTemplate: "$2").toInt()!
         
         return RangefinderData(distance: distance, angle: angle)
     }
-
+    
     
     // MARK: - ORSSerialPort
     let serialPortManager = ORSSerialPortManager.sharedSerialPortManager()
