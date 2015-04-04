@@ -44,8 +44,9 @@ class MapScene: SKScene {
     }
     
     func addPoint(loc: CGPoint) {
-        var color = NSColor(hex: "00ff00")
-        var size = CGSize(width: 2, height: 2)
+        var color = NSColor(hex: Config.get("ptColor") as String)
+        var size = CGSize(width: Config.get("ptSize") as Int,
+            height: Config.get("ptSize") as Int)
         
         let point = SKSpriteNode(color: color, size: size)
         point.position = loc

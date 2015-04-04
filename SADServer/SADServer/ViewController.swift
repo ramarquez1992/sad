@@ -45,6 +45,7 @@ class ViewController: NSViewController, CommDelegate {
             mapView.presentScene(scene)
             map = scene
         }
+        
     }
     
     // MARK: - IBAction

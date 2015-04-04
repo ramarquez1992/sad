@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		202913131ACF226F007C56E7 /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202913121ACF226F007C56E7 /* Compass.swift */; };
+		202913181ACFB76D007C56E7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202913171ACFB76D007C56E7 /* Config.swift */; };
+		2029131A1ACFB854007C56E7 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 202913191ACFB854007C56E7 /* Config.plist */; };
 		2047865B1ABFA66700E98FAE /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047865A1ABFA66700E98FAE /* Delay.swift */; };
 		20563E741AB92E8E00784939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E731AB92E8E00784939 /* AppDelegate.swift */; };
 		20563E761AB92E8E00784939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E751AB92E8E00784939 /* ViewController.swift */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		202913121ACF226F007C56E7 /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
+		202913171ACFB76D007C56E7 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		202913191ACFB854007C56E7 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		2047865A1ABFA66700E98FAE /* Delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
 		20563E6E1AB92E8D00784939 /* SADServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SADServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20563E721AB92E8E00784939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				20563E791AB92E8E00784939 /* Main.storyboard */,
+				202913171ACFB76D007C56E7 /* Config.swift */,
+				202913191ACFB854007C56E7 /* Config.plist */,
 				20563E771AB92E8E00784939 /* Images.xcassets */,
 				20563E721AB92E8E00784939 /* Info.plist */,
 				20F7EF6B1ABE37E60002CA84 /* SADServer-Bridging-Header.h */,
@@ -287,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2029131A1ACFB854007C56E7 /* Config.plist in Resources */,
 				20563E781AB92E8E00784939 /* Images.xcassets in Resources */,
 				20563E7B1AB92E8E00784939 /* Main.storyboard in Resources */,
 				20B8F9521AC70C17001FC4F9 /* MapScene.sks in Resources */,
@@ -320,6 +327,7 @@
 				20B8F94C1AC7039B001FC4F9 /* VectorMath.swift in Sources */,
 				20B8F9541AC70D04001FC4F9 /* MapScene.swift in Sources */,
 				20F7EF761ABE43D00002CA84 /* ORSSerialRequest.m in Sources */,
+				202913181ACFB76D007C56E7 /* Config.swift in Sources */,
 				20B8F9561AC7180C001FC4F9 /* SKSceneExtension.swift in Sources */,
 				20B8F9481AC647C7001FC4F9 /* RangefinderData.swift in Sources */,
 			);
