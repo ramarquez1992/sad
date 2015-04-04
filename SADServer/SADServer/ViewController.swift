@@ -23,6 +23,10 @@ class ViewController: NSViewController, CommDelegate {
     @IBOutlet weak var resetButton: NSButton!
     @IBOutlet weak var mapView: SKView!
     
+    @IBOutlet weak var lRangefinderTextField: NSTextField!
+    @IBOutlet weak var fRangefinderTextField: NSTextField!
+    @IBOutlet weak var rRangefinderTextField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,11 +87,14 @@ class ViewController: NSViewController, CommDelegate {
         mapView.presentScene(nil)
     }
     
+    // MARK: - Update views
     func addRangefinderDataToMap(RFData: RangefinderData) {
         // TODO: actually add to map
         //(mapView.scene as MapScene).addPoint(RFData)
-        
-        println("inches: " + String(RFData.distance) + " | angle: " + String(RFData.angle))
+    }
+    
+    func updateRangefinderViews(RFData: [RangefinderData]) {
+        self.fRangefinderTextField.stringValue = String(RFData[0].distance) + "\""
     }
     
     func updateReceivedDataTextView(string: String) {
@@ -113,7 +120,11 @@ class ViewController: NSViewController, CommDelegate {
         self.resetButton.enabled = false
     }
     
-    func didReceivePacket(data: [RangefinderData]) {
+    func didReceivePacket(data: [RangefinderData], rawPacket: String) {
+        // TODO: add timestamp and newline to rawPacket
+        updateReceivedDataTextView(rawPacket)
+        updateRangefinderViews(data)
+
         for sensor in data {
             addRangefinderDataToMap(sensor)
         }

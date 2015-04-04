@@ -14,7 +14,7 @@ let _comm = Comm()
 protocol CommDelegate {
     func connectionWasOpened();
     func connectionWasClosed();
-    func didReceivePacket(data: [RangefinderData]);
+    func didReceivePacket(data: [RangefinderData], rawPacket: String);
 }
 
 // MARK: -
@@ -30,10 +30,6 @@ class Comm: NSObject, ORSSerialPortDelegate {
     func parsePacket(packet: String) -> [RangefinderData] {
         // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...)"
         var sensorData: [RangefinderData] = []
-        
-        if (!isValidPacket(packet)) {
-            return sensorData
-        }
         
         // Get each individual sensor
         var sensors = separateSensors(packet)
@@ -189,7 +185,9 @@ class Comm: NSObject, ORSSerialPortDelegate {
                     var fullPacketRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
                     var fullPacket = RXBuffer.substringWithRange(fullPacketRange)
                     
-                    delegate?.didReceivePacket(parsePacket(fullPacket))
+                    if (isValidPacket(fullPacket)) {
+                        delegate?.didReceivePacket(parsePacket(fullPacket), rawPacket: fullPacket)
+                    }
                     
                     var remainderRange = Range<String.Index>(start: newlinePos.successor(), end: RXBuffer.endIndex)
                     var remainder = RXBuffer.substringWithRange(remainderRange)
