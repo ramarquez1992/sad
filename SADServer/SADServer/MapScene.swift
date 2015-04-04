@@ -101,6 +101,14 @@ class MapScene: SKScene {
         self.addChild(yAxis)
     }
     
+    private func inchesToPixels(inches: Int) -> CGFloat {
+        var gridSize = Config.get("gridSize") as CGFloat
+        var oneFoot = size.width / gridSize
+        var oneInch = oneFoot / 12
+        
+        return (CGFloat(inches) * oneInch)
+    }
+    
     // MARK: - Manage points
     func addRandomPoints(n: Int) {
         if (n > 0) {
@@ -113,7 +121,15 @@ class MapScene: SKScene {
     }
     
     func addPoint(RFData: RangefinderData) {
-        // TODO: find real point relative to current position and addPoint()
+        var trueDegrees =  CGFloat(drone.heading + (RFData.angle - 90))
+
+        if (trueDegrees < 0) {
+            trueDegrees = 360 - abs(trueDegrees)
+        }
+
+        var realPt = drone.position + (angleToUnitVector(trueDegrees) * inchesToPixels(RFData.distance))
+        
+        addPoint(realPt)
     }
     
     func addPoint(loc: CGPoint) {

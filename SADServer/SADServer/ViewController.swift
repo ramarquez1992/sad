@@ -107,8 +107,7 @@ class ViewController: NSViewController, CommDelegate {
     
     // MARK: - Update views
     func addRangefinderDataToMap(RFData: RangefinderData) {
-        // TODO: actually add to map
-        //(mapView.scene as MapScene).addPoint(RFData)
+        (mapView.scene as MapScene).addPoint(RFData)
     }
     
     func updateRangefinderViews(RFData: [RangefinderData]) {
