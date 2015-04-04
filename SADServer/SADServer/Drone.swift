@@ -13,8 +13,8 @@ class Drone: SKSpriteNode {
     
     let comm = Comm.getInstance()
     
-    var heading: Int = Compass.NORTH
-    var moving: Bool = false
+    var heading = Compass.NORTH
+    var running = false
     
     override init() {
         var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as String)
@@ -30,8 +30,19 @@ class Drone: SKSpriteNode {
     
     func reset(loc: CGPoint) {
         heading = Compass.NORTH
-        moving = false
+        running = false
         position = loc
     }
     
+    func startSLAM() {
+        running = true
+        
+        comm.sendStr("f")
+    }
+    
+    func stopSLAM() {
+        running = false
+        
+        comm.sendStr(" ")
+    }
 }

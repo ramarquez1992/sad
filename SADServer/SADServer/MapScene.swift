@@ -110,16 +110,6 @@ class MapScene: SKScene {
     }
     
     // MARK: - Manage points
-    func addRandomPoints(n: Int) {
-        if (n > 0) {
-            addPoint(getRandomPosition())
-
-            delay(300) {
-                self.addRandomPoints(n - 1)
-            }
-        }
-    }
-    
     func addPoint(RFData: RangefinderData) {
         var trueDegrees =  CGFloat(drone.heading + (RFData.angle - 90))
 
@@ -143,6 +133,16 @@ class MapScene: SKScene {
         point.position = loc
 
         self.addChild(point)
+    }
+    
+    func addRandomPoints(n: Int) {
+        if (n > 0) {
+            addPoint(getRandomPosition())
+            
+            delay(300) {
+                self.addRandomPoints(n - 1)
+            }
+        }
     }
 
 }

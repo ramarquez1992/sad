@@ -71,10 +71,9 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     @IBAction func startOrStopSLAM(AnyObject) {
-        // TODO: change conditional to test a 'currentlyRunning' var
-        if (self.startStopButton.title == "START") {
+        if (!map!.drone.running) {
             startSLAM()
-        } else if (self.startStopButton.title == "STOP") {
+        } else {
             stopSLAM()
         }
     }
@@ -92,16 +91,14 @@ class ViewController: NSViewController, CommDelegate {
         println("zooming out")
     }
     
-    // MARK: -
+    // MARK: - SLAM
     func startSLAM() {
+        map!.drone.startSLAM()
         self.startStopButton.title = "STOP"
-        
-        map?.addRandomPoints(5)
     }
     
     func stopSLAM() {
-        comm.sendStr(" ")       // Stop drone
-
+        map!.drone.stopSLAM()
         self.startStopButton.title = "START"
     }
     
@@ -152,7 +149,7 @@ class ViewController: NSViewController, CommDelegate {
     func didReceivePacket(data: [RangefinderData], rawPacket: String) {
         updateReceivedDataTextView(rawPacket + "\n")
         updateRangefinderViews(data)
-        updateSpeedView(2)      // TODO: use real data
+        updateSpeedView(2)      // TODO: real data for speed view
         updateHeadingView(map!.drone.heading)
 
         for sensor in data {
