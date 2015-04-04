@@ -68,6 +68,14 @@ class ViewController: NSViewController, CommDelegate {
         startSLAM()
     }
     
+    @IBAction func zoomIn(AnyObject) {
+        println("zooming in")
+    }
+    
+    @IBAction func zoomOut(AnyObject) {
+        println("zooming out")
+    }
+    
     // MARK: -
     func startSLAM() {
         self.startStopButton.title = "STOP"
