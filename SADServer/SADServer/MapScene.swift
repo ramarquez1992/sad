@@ -38,9 +38,6 @@ class MapScene: SKScene {
     private func drawGrid() {
         drawCells()
         drawAxes()
-        
-        // TODO: draw labels
-        
     }
     
     private func drawCells() {

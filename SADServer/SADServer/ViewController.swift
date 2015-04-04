@@ -22,6 +22,7 @@ class ViewController: NSViewController, CommDelegate {
     @IBOutlet weak var startStopButton: NSButton!
     @IBOutlet weak var resetButton: NSButton!
     @IBOutlet weak var mapView: SKView!
+    @IBOutlet weak var gridSizeTextField: NSTextField!
     
     @IBOutlet weak var lRangefinderTextField: NSTextField!
     @IBOutlet weak var fRangefinderTextField: NSTextField!
