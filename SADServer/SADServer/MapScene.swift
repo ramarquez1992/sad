@@ -11,7 +11,7 @@ import SpriteKit
 class MapScene: SKScene {
     
     override func didMoveToView(view: SKView) {
-        addRandomPoints()
+        drawGrid()
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -19,25 +19,37 @@ class MapScene: SKScene {
     }
     
     // MARK: -
-    func addRandomPoints() {
-        addPoint(getRandomPosition())
-        
-        delay(1) {
-            self.addRandomPoints()
+    func drawGrid() {
+        // TODO: add lines
+        // TODO: add labels
+    }
+    
+    func reset() {
+        self.removeAllChildren()
+        drawGrid()
+    }
+    
+    func addRandomPoints(n: Int) {
+        if (n > 0) {
+            addPoint(getRandomPosition())
+
+            delay(300) {
+                self.addRandomPoints(n - 1)
+            }
         }
     }
     
     func addPoint(RFData: RangefinderData) {
-        // TODO:
+        // TODO: add point relative to current position
     }
     
     func addPoint(loc: CGPoint) {
         var color = NSColor(hex: "00ff00")
-        var size = CGSize(width: 5, height: 5)
+        var size = CGSize(width: 2, height: 2)
         
         let point = SKSpriteNode(color: color, size: size)
         point.position = loc
-        
+
         self.addChild(point)
     }
 

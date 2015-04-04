@@ -10,21 +10,11 @@ import SpriteKit
 
 extension SKScene {
     
-    func getRandomPosition(fromPoint: CGPoint = CGPoint(), minDistance: CGFloat = 0.0) -> CGPoint {
-        var possiblePosition: CGPoint
-        var possibleLength: CGFloat
-        var currentLength = fromPoint.length()
-        var distance: CGFloat = 0.0
+    func getRandomPosition() -> CGPoint {
+        let x = CGFloat(size.width) * (CGFloat(arc4random()) / CGFloat(UInt32.max))
+        let y = CGFloat(size.height) * (CGFloat(arc4random()) / CGFloat(UInt32.max))
         
-        do {
-            possiblePosition = CGPoint(x: CGFloat(size.width) * (CGFloat(arc4random()) / CGFloat(UInt32.max)),
-                y: CGFloat(size.height) * (CGFloat(arc4random()) / CGFloat(UInt32.max)))
-            
-            possibleLength = possiblePosition.length()
-            distance = abs(currentLength - possibleLength)
-        } while distance < CGFloat(minDistance)
-        
-        return possiblePosition
+        return CGPoint(x: x, y: y)
     }
     
     func getRelativeDirection(origin: CGPoint, destination: CGPoint) -> CGPoint {

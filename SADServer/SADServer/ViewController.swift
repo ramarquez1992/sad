@@ -29,12 +29,22 @@ class ViewController: NSViewController, CommDelegate {
     
     @IBOutlet weak var speedTextField: NSTextField!
     @IBOutlet weak var headingTextField: NSTextField!
+    
+    var map: MapScene?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         comm.delegate = self
+        
+        if let scene = MapScene.unarchiveFromFile("MapScene") as? MapScene {
+            mapView.ignoresSiblingOrder = true      // Sprite Kit rendering performance optimizations
+            scene.scaleMode = .AspectFill           // Set the scale mode to scale to fit the window
+            
+            mapView.presentScene(scene)
+            map = scene
+        }
     }
     
     // MARK: - IBAction
@@ -69,7 +79,7 @@ class ViewController: NSViewController, CommDelegate {
     
     @IBAction func resetMap(AnyObject) {
         stopSLAM()
-        startSLAM()
+        map?.reset()
     }
     
     @IBAction func zoomIn(AnyObject) {
@@ -84,19 +94,13 @@ class ViewController: NSViewController, CommDelegate {
     func startSLAM() {
         self.startStopButton.title = "STOP"
         
-        if let scene = MapScene.unarchiveFromFile("MapScene") as? MapScene {
-            mapView.ignoresSiblingOrder = true      // Sprite Kit rendering performance optimizations
-            scene.scaleMode = .AspectFill           // Set the scale mode to scale to fit the window
-            
-            mapView.presentScene(scene)
-        }
+        map?.addRandomPoints(5)
     }
     
     func stopSLAM() {
         comm.sendStr(" ")       // Stop drone
 
         self.startStopButton.title = "START"
-        mapView.presentScene(nil)
     }
     
     // MARK: - Update views
