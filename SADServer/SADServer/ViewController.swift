@@ -153,7 +153,7 @@ class ViewController: NSViewController, CommDelegate {
         updateReceivedDataTextView(rawPacket + "\n")
         updateRangefinderViews(data)
         updateSpeedView(2)      // TODO: use real data
-        updateHeadingView(90)   // TODO: use real data
+        updateHeadingView(map!.drone.heading)
 
         for sensor in data {
             addRangefinderDataToMap(sensor)
