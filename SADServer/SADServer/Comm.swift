@@ -201,6 +201,8 @@ class Comm: NSObject, ORSSerialPortDelegate {
                     
                     if (isValidPacket(fullPacket)) {
                         delegate?.didReceivePacket(parsePacket(fullPacket), rawPacket: fullPacket)
+                    } else {
+                        println("INVALID PACKET: " + fullPacket)
                     }
                     
                     var remainderRange = Range<String.Index>(start: newlinePos.successor(), end: RXBuffer.endIndex)

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <SoftwareSerial.h>
+#include <TimedAction.h>
 #include "CommStation.h"
 #include "Motor.h"
 #include "Rangefinder.h"
@@ -107,22 +108,31 @@ void setup() {
   //rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
   //lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
   
-  magnetometer = new Magnetometer(MAGNETOMETER_TRIG_PIN, MAGNETOMETER_ECHO_PIN);
+  magnetometer = new Magnetometer(MAGNETOMETER_TRIG_PIN, MAGNETOMETER_ECHO_PIN);  
 }
 
+TimedAction scanAction = TimedAction(100, bgScan);
+
 void loop() {
-  if (comm->available()) {
+  if (comm->isAvailable()) {
     // Execute any available action
     cmdFuncPtr cmd = comm->getCmd();
     if (cmd != NULL) {
       cmd();
     }
-      
-    // Range scan and send data back to base
-    Packet p = scan();
+    
+    scanAction.check();
+  }
+
+}
+
+void bgScan() {
+  Packet p = scan();
+
+  if (!comm->isBusy()) {
     comm->sendPacket(p);
   }
-  //delay(200);
+
 }
 
 

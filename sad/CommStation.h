@@ -26,7 +26,8 @@ private:
 public:
   CommStation(SoftwareSerial* serial);
   
-  bool available();
+  bool isAvailable();
+  bool isBusy();
   cmdFuncPtr getCmd();
   void sendString(String data);
   void sendPacket(Packet packet);

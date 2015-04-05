@@ -4,13 +4,23 @@ CommStation::CommStation(SoftwareSerial* serial) {
   this->serial = serial;
 }
 
-bool CommStation::available() {
+bool CommStation::isAvailable() {
   bool result = false;
   
   if (serial->isListening()) {
     result = true;
   } else {
-    //clear cache
+    // TODO: clear cache
+  }
+  
+  return result;
+}
+
+bool CommStation::isBusy() {
+  bool result = false;
+  
+  if (serial->peek() != -1) {
+    result = true;
   }
   
   return result;
