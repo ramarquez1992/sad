@@ -10,6 +10,7 @@
 		202913131ACF226F007C56E7 /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202913121ACF226F007C56E7 /* Compass.swift */; };
 		202913181ACFB76D007C56E7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202913171ACFB76D007C56E7 /* Config.swift */; };
 		2029131A1ACFB854007C56E7 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 202913191ACFB854007C56E7 /* Config.plist */; };
+		2029131C1AD0B618007C56E7 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2029131B1AD0B618007C56E7 /* Packet.swift */; };
 		2047865B1ABFA66700E98FAE /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047865A1ABFA66700E98FAE /* Delay.swift */; };
 		20563E741AB92E8E00784939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E731AB92E8E00784939 /* AppDelegate.swift */; };
 		20563E761AB92E8E00784939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20563E751AB92E8E00784939 /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 		202913121ACF226F007C56E7 /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		202913171ACFB76D007C56E7 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		202913191ACFB854007C56E7 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		2029131B1AD0B618007C56E7 /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		2047865A1ABFA66700E98FAE /* Delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
 		20563E6E1AB92E8D00784939 /* SADServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SADServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20563E721AB92E8E00784939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				20B03DC91AC7FE210096BD44 /* Comm.swift */,
+				2029131B1AD0B618007C56E7 /* Packet.swift */,
 				20B8F9491AC6FE43001FC4F9 /* Drone.swift */,
 				202913121ACF226F007C56E7 /* Compass.swift */,
 				20B8F9471AC647C7001FC4F9 /* RangefinderData.swift */,
@@ -325,6 +328,7 @@
 				20B8F9581AC71915001FC4F9 /* NSColorExtension.swift in Sources */,
 				20B8F94A1AC6FE43001FC4F9 /* Drone.swift in Sources */,
 				20B8F94C1AC7039B001FC4F9 /* VectorMath.swift in Sources */,
+				2029131C1AD0B618007C56E7 /* Packet.swift in Sources */,
 				20B8F9541AC70D04001FC4F9 /* MapScene.swift in Sources */,
 				20F7EF761ABE43D00002CA84 /* ORSSerialRequest.m in Sources */,
 				202913181ACFB76D007C56E7 /* Config.swift in Sources */,

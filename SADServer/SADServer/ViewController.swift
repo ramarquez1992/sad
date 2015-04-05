@@ -146,15 +146,17 @@ class ViewController: NSViewController, CommDelegate {
         self.resetButton.enabled = false
     }
     
-    func didReceivePacket(data: [RangefinderData], rawPacket: String) {
-        updateReceivedDataTextView(rawPacket + "\n")
-        updateRangefinderViews(data)
-        updateSpeedView(2)      // TODO: real data for speed view
-        updateHeadingView(map!.drone.heading)
-
-        for sensor in data {
+    func didReceivePacket(packet: Packet, rawPacket: String) {
+        map!.drone.heading = packet.heading
+        
+        for sensor in packet.RFData {
             addRangefinderDataToMap(sensor)
         }
+        
+        updateReceivedDataTextView(rawPacket + "\n")
+        updateRangefinderViews(packet.RFData)
+        updateSpeedView(2)      // TODO: real data for speed view
+        updateHeadingView(map!.drone.heading)
     }
 
     /*override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {

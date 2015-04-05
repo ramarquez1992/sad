@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <SoftwareSerial.h>
+#include "Packet.h"
 #include "Rangefinder.h"
 
 using namespace std;
@@ -12,6 +13,8 @@ using namespace std;
 #define START_TOKEN "("
 #define VAL_SET_TOKEN "|"
 #define VAL_SEPARATOR ","
+#define BEGIN_HEADING "<"
+#define END_HEADING ">"
 #define END_TOKEN ")\n"
 
 typedef void (*cmdFuncPtr)();
@@ -26,7 +29,7 @@ public:
   bool available();
   cmdFuncPtr getCmd();
   void sendString(String data);
-  void sendData(vector<Range> data);
+  void sendPacket(Packet packet);
 };
 
 #endif

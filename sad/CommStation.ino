@@ -62,15 +62,16 @@ void CommStation::sendString(String str) {
 }
 
 // Format: "([number of rangefinders]|[range1 distance],[range1 angle]|[range2 distance],[range2 angle]|...)"
-void CommStation::sendData(vector<Range> data) {
-  int rangefinderCount = data.size();
+void CommStation::sendPacket(Packet packet) {
+  int rangefinderCount = packet.RFData.size();
   
   String str = START_TOKEN + String(rangefinderCount);
   
   for (int i = 0; i < rangefinderCount; ++i) {
-    str += VAL_SET_TOKEN + String(data[i].centimeters) + VAL_SEPARATOR + String(data[i].angle);
+    str += VAL_SET_TOKEN + String(packet.RFData[i].centimeters) + VAL_SEPARATOR + String(packet.RFData[i].angle);
   }
   
+  str += String(BEGIN_HEADING) + packet.heading + END_HEADING;
   str += END_TOKEN;
   sendString(str);
 }

@@ -9,6 +9,8 @@
 #include "CommStation.h"
 #include "Motor.h"
 #include "Rangefinder.h"
+#include "Packet.h"
+#include "Magnetometer.h"
 
 using namespace std;
 
@@ -35,12 +37,16 @@ using namespace std;
 #define LEFT_RF_TRIG_PIN  A4
 #define LEFT_RF_ECHO_PIN  A5
 
+#define MAGNETOMETER_TRIG_PIN  1
+#define MAGNETOMETER_ECHO_PIN  2
+
 CommStation* comm;
 Motor* rMotor;
 Motor* lMotor;
 Rangefinder* fRangefinder;
 Rangefinder* rRangefinder;
 Rangefinder* lRangefinder;
+Magnetometer* magnetometer;
 
 void brake() {
   rMotor->stop();
@@ -67,15 +73,17 @@ void turnLeft() {
   lMotor->reverse();
 }
 
-vector<Range> scan() {
+Packet scan() {
   int totalScans = 10; // 1ms total time
-  vector<Range> data;
+  vector<Range> RFData;
   
-  data.push_back(fRangefinder->avgPing(totalScans));
-  //data.push_back(lRangefinder->avgPing(totalScans));
-  //data.push_back(rRangefinder->avgPing(totalScans));
+  RFData.push_back(fRangefinder->avgPing(totalScans));
+  //RFData.push_back(lRangefinder->avgPing(totalScans));
+  //RFData.push_back(rRangefinder->avgPing(totalScans));
   
-  return data;
+  int heading = magnetometer->getHeading();
+  
+  return Packet(heading, RFData);
 }
 
 void setup() {
@@ -98,6 +106,8 @@ void setup() {
   fRangefinder = new Rangefinder(FRONT_RF_TRIG_PIN, FRONT_RF_ECHO_PIN, 90);
   //rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
   //lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
+  
+  magnetometer = new Magnetometer(MAGNETOMETER_TRIG_PIN, MAGNETOMETER_ECHO_PIN);
 }
 
 void loop() {
@@ -109,8 +119,8 @@ void loop() {
     }
       
     // Range scan and send data back to base
-    vector<Range> data = scan();
-    comm->sendData(data);
+    Packet p = scan();
+    comm->sendPacket(p);
   }
   //delay(200);
 }
