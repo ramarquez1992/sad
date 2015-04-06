@@ -8,13 +8,17 @@
 
 using namespace std;
 
+#define DECLINATION_ANGLE 0    // in radians (Winona, MN)
+
 class Magnetometer {
 private:
-  int trigPin;
-  int echoPin;
+  int heading;
+  int address;
+  int sdaPin;
+  int sclPin;
   
 public:
-  Magnetometer(int trigPin, int echoPin);  
+  Magnetometer(int address, int sdaPin, int sclPin);  
 
   int getHeading();
   
