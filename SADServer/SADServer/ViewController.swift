@@ -108,15 +108,15 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     func updateRangefinderViews(RFData: [RangefinderData]) {
-        self.fRangefinderTextField.stringValue = String(RFData[0].distance) + "\""
+        self.fRangefinderTextField.stringValue = "\(RFData[0].distance)\""
     }
     
     func updateSpeedView(speed: Int) {
-        self.speedTextField.stringValue = String(speed) + "\"/s"
+        self.speedTextField.stringValue = "\(speed)\"/s"
     }
     
-    func updateHeadingView(heading: Int) {
-        self.headingTextField.stringValue = String(heading) + "°"
+    func updateHeadingView(heading: CGFloat) {
+        self.headingTextField.stringValue = "\(heading)°"
     }
     
     func updateReceivedDataTextView(string: String) {

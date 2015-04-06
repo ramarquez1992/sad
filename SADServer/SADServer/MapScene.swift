@@ -101,7 +101,7 @@ class MapScene: SKScene {
         self.addChild(yAxis)
     }
     
-    private func inchesToPixels(inches: Int) -> CGFloat {
+    private func inchesToPixels(inches: CGFloat) -> CGFloat {
         var gridSize = Config.get("gridSize") as CGFloat
         var oneFoot = size.width / gridSize
         var oneInch = oneFoot / 12
@@ -111,7 +111,7 @@ class MapScene: SKScene {
     
     // MARK: - Manage points
     func addPoint(RFData: RangefinderData) {
-        var trueDegrees =  CGFloat(drone.heading + (RFData.angle - 90))
+        var trueDegrees =  drone.heading + (RFData.angle - 90)
 
         if (trueDegrees < 0) {
             trueDegrees = 360 - abs(trueDegrees)

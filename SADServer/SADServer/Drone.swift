@@ -12,9 +12,13 @@ import SpriteKit
 class Drone: SKSpriteNode {
     
     let comm = Comm.getInstance()
-    
-    var heading = Compass.NORTH
     var running = false
+
+    var heading: CGFloat = Compass.NORTH {
+        didSet {
+            zRotation = DEGREES_TO_RADIANS(90 - heading)
+        }
+    }
     
     override init() {
         var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as String)

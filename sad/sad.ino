@@ -1,7 +1,3 @@
-/* TODO:
- * start/stop functions w/ LEDs
- */
-
 #include <StandardCplusplus.h>
 #include <vector>
 

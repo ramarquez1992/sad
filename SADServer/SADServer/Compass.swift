@@ -9,8 +9,8 @@
 import Foundation
 
 struct Compass {
-    static let NORTH = 90
-    static let EAST  = 180
-    static let SOUTH = 270
-    static let WEST  = 0
+    static let NORTH: CGFloat = 90
+    static let EAST: CGFloat = 180
+    static let SOUTH: CGFloat = 270
+    static let WEST: CGFloat = 0
 }

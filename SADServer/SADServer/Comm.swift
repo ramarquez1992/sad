@@ -54,7 +54,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
         return result
     }
     
-    private func getHeading(packet: String) -> Int {
+    private func getHeading(packet: String) -> CGFloat {
         var heading = 20
         
         let headingPattern = "^\\([0-9]+(?:\\|[0-9]+,[0-9]+)+<([0-9]+)>\\)$"
@@ -65,7 +65,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
             range: NSRange(location: 0, length: countElements(packet)),
             withTemplate: "$1").toInt()!
         
-        return heading
+        return CGFloat(heading)
     }
     
     private func separateSensors(packet: String) -> [String] {
@@ -140,7 +140,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
             range: NSRange(location: 0, length: countElements(sensor)),
             withTemplate: "$2").toInt()!
         
-        return RangefinderData(distance: distance, angle: angle)
+        return RangefinderData(distance: CGFloat(distance), angle: CGFloat(angle))
     }
     
     
