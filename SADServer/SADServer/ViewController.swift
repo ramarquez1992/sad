@@ -84,11 +84,11 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     @IBAction func zoomIn(AnyObject) {
-        println("zooming in")
+        map!.zoom(0.5)
     }
     
     @IBAction func zoomOut(AnyObject) {
-        println("zooming out")
+        map!.zoom(2)
     }
     
     // MARK: - SLAM

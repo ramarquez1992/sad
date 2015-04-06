@@ -10,6 +10,13 @@ import SpriteKit
 
 class MapScene: SKScene {
 
+    var scale = CGFloat(1)
+    var gridSize: CGFloat {
+        get {
+            return Config.get("initialGridSize") as CGFloat * scale
+        }
+    }
+    
     var origin = CGPoint()
     var obstacles = [CGPoint]()
     var drone = Drone()
@@ -54,7 +61,6 @@ class MapScene: SKScene {
     
     private func drawCells() {
         var pathToDraw: CGMutablePath
-        var gridSize = Config.get("gridSize") as CGFloat
         
         for (var i = 0; i < Int(gridSize); ++i) {
             var horizontal = SKShapeNode()
@@ -113,6 +119,19 @@ class MapScene: SKScene {
         self.addChild(yAxis)
     }
     
+    func zoom(scaleFactor: CGFloat) {
+        scale *= scaleFactor
+        
+        var originalDronePosition = drone.physicalPosition
+        drone.physicalPosition = drone.physicalPosition * scaleFactor
+        
+        for (var i = 0; i < obstacles.count; ++i) {
+            obstacles[i] = (obstacles[i] - originalDronePosition) + drone.physicalPosition
+        }
+        
+        redraw()
+    }
+    
     // MARK: - Manage points
     func addPoint(RFData: RangefinderData) {
         var trueDegrees =  drone.heading + (RFData.angle - 90)
@@ -150,7 +169,6 @@ class MapScene: SKScene {
     
     // MARK: - Scaling
     private func getPixelsPerInch() -> CGFloat {
-        var gridSize = Config.get("gridSize") as CGFloat
         var oneFoot = size.width / gridSize
         var oneInch = oneFoot / 12
         

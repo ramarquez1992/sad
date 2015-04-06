@@ -30,6 +30,7 @@ cmdFuncPtr CommStation::getCmd() {
   cmdFuncPtr cmd = NULL;
   
   if (serial->available()) {
+    serial->flush();
     char action = serial->read();
     
     // Parse action

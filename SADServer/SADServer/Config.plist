@@ -8,7 +8,7 @@
 	<real>0.5</real>
 	<key>droneSpriteColor</key>
 	<string>0000ff</string>
-	<key>gridSize</key>
+	<key>initialGridSize</key>
 	<integer>20</integer>
 	<key>gridWidth</key>
 	<real>0.2</real>
