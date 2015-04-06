@@ -24,14 +24,26 @@ class MapScene: SKScene {
         /* Called before each frame is rendered */
     }
     
-    func reset() {
+    func clear() {
         self.removeAllChildren()
-        obstacles.removeAll()
-        
         drawGrid()
-        
-        drone.reset(origin)
         self.addChild(drone)
+    }
+    
+    func redraw() {
+        clear()
+        
+        drone.position = scaleInchesToPixels(drone.physicalPosition)
+        
+        for o in obstacles {
+            drawPoint(o)
+        }
+    }
+    
+    func reset() {
+        clear()
+        obstacles.removeAll()
+        drone.reset(origin, physicalPos: scalePixelsToInches(origin))
     }
     
     // MARK: - Grid display
@@ -101,14 +113,6 @@ class MapScene: SKScene {
         self.addChild(yAxis)
     }
     
-    private func inchesToPixels(inches: CGFloat) -> CGFloat {
-        var gridSize = Config.get("gridSize") as CGFloat
-        var oneFoot = size.width / gridSize
-        var oneInch = oneFoot / 12
-        
-        return (CGFloat(inches) * oneInch)
-    }
-    
     // MARK: - Manage points
     func addPoint(RFData: RangefinderData) {
         var trueDegrees =  drone.heading + (RFData.angle - 90)
@@ -117,32 +121,56 @@ class MapScene: SKScene {
             trueDegrees = 360 - abs(trueDegrees)
         }
 
-        var realPt = drone.position + (angleToUnitVector(trueDegrees) * inchesToPixels(RFData.distance))
+        var pt = drone.physicalPosition + (angleToUnitVector(trueDegrees) * RFData.distance)
         
-        addPoint(realPt)
+        obstacles.append(pt)
+        drawPoint(pt)
     }
     
-    func addPoint(loc: CGPoint) {
-        obstacles.append(loc)
-        
+    func drawPoint(loc: CGPoint) {
         var color = NSColor(hex: Config.get("ptColor") as String)
         var size = CGSize(width: Config.get("ptSize") as Int,
             height: Config.get("ptSize") as Int)
         
         let point = SKSpriteNode(color: color, size: size)
-        point.position = loc
+        point.position = scaleInchesToPixels(loc)
 
         self.addChild(point)
     }
     
     func addRandomPoints(n: Int) {
         if (n > 0) {
-            addPoint(getRandomPosition())
+            drawPoint(getRandomPosition())
             
             delay(300) {
                 self.addRandomPoints(n - 1)
             }
         }
+    }
+    
+    // MARK: - Scaling
+    private func getPixelsPerInch() -> CGFloat {
+        var gridSize = Config.get("gridSize") as CGFloat
+        var oneFoot = size.width / gridSize
+        var oneInch = oneFoot / 12
+        
+        return oneInch
+    }
+    
+    private func inchesToPixels(inches: CGFloat) -> CGFloat {
+        return (inches * getPixelsPerInch())
+    }
+    
+    private func pixelsToInches(pixels: CGFloat) -> CGFloat {
+        return (pixels / getPixelsPerInch())
+    }
+    
+    private func scaleInchesToPixels(pt: CGPoint) -> CGPoint {
+        return CGPoint(x: inchesToPixels(pt.x), y: inchesToPixels(pt.y))
+    }
+    
+    private func scalePixelsToInches(pt: CGPoint) -> CGPoint {
+        return CGPoint(x: pixelsToInches(pt.x), y: pixelsToInches(pt.y))
     }
 
 }

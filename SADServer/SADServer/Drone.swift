@@ -13,6 +13,7 @@ class Drone: SKSpriteNode {
     
     let comm = Comm.getInstance()
     var running = false
+    var physicalPosition = CGPoint()
 
     var heading: CGFloat = Compass.NORTH {
         didSet {
@@ -32,10 +33,11 @@ class Drone: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reset(loc: CGPoint) {
+    func reset(pos: CGPoint, physicalPos: CGPoint) {
         heading = Compass.NORTH
         running = false
-        position = loc
+        position = pos
+        physicalPosition = physicalPos
     }
     
     func startSLAM() {
