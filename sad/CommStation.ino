@@ -82,7 +82,7 @@ void CommStation::sendPacket(Packet packet) {
     str += VAL_SET_TOKEN + String(packet.RFData[i].centimeters) + VAL_SEPARATOR + String(packet.RFData[i].angle);
   }
   
-  str += String(BEGIN_HEADING) + packet.heading + END_HEADING;
+  str += String(BEGIN_HEADING) + int(packet.heading) + END_HEADING;
   str += END_TOKEN;
   sendString(str);
 }

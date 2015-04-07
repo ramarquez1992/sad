@@ -1,6 +1,7 @@
 # Todo List
 
 ## Miscellaneous
+* magnetometer averaging
 * heading autocorrection w/ magnetometer
 
 ## Issues

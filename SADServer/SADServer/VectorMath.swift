@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Conversions
 func RADIANS_TO_DEGREES(radians: CGFloat) -> CGFloat {
-    return CGFloat((Double(radians) / (2 * M_PI)) * 360)
+    return CGFloat(Double(radians) * (180 / M_PI))
 }
 
 func DEGREES_TO_RADIANS(degrees: CGFloat) -> CGFloat {

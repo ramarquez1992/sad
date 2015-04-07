@@ -6,21 +6,19 @@
 #include <numeric>
 #include <algorithm>
 
+#include <HMC5883L.h>
+
 using namespace std;
 
-#define DECLINATION_ANGLE 0    // in radians (Winona, MN)
+#define DECLINATION_ANGLE 0.0    // in radians (Winona, MN)
 
-class Magnetometer {
+class Magnetometer : public HMC5883L {
 private:
-  int heading;
-  int address;
-  int sdaPin;
-  int sclPin;
+  float heading;
   
 public:
-  Magnetometer(int address, int sdaPin, int sclPin);  
-
-  int getHeading();
+  Magnetometer();  
+  float getHeading();
   
 };
 

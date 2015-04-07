@@ -9,6 +9,8 @@
 #include "Packet.h"
 #include "Magnetometer.h"
 #include <Wire.h>
+#include <HMC5883L.h>
+
 
 using namespace std;
 
@@ -34,10 +36,6 @@ using namespace std;
 #define RIGHT_RF_ECHO_PIN A3
 #define LEFT_RF_TRIG_PIN  A4
 #define LEFT_RF_ECHO_PIN  A5
-
-#define MAGNETOMETER_ADDRESS 0x1E
-#define MAGNETOMETER_SDA_PIN A4
-#define MAGNETOMETER_SCL_PIN A5
 
 CommStation* comm;
 Motor* rMotor;
@@ -106,7 +104,7 @@ void setup() {
   //rRangefinder = new Rangefinder(RIGHT_RF_TRIG_PIN, RIGHT_RF_ECHO_PIN, 180);
   //lRangefinder = new Rangefinder(LEFT_RF_TRIG_PIN, LEFT_RF_ECHO_PIN, 0);
   
-  magnetometer = new Magnetometer(MAGNETOMETER_ADDRESS, MAGNETOMETER_SDA_PIN, MAGNETOMETER_SCL_PIN);  
+  magnetometer = new Magnetometer();  
 }
 
 TimedAction scanAction = TimedAction(100, bgScan);

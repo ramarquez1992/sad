@@ -11,13 +11,13 @@ using namespace std;
 
 class Packet {
 public:
-  int heading;
+  float heading;
   vector<Range> RFData;
   
-  Packet(int heading, vector<Range> RFData);
+  Packet(float heading, vector<Range> RFData);
 };
 
-Packet::Packet(int heading, vector<Range> RFData) {
+Packet::Packet(float heading, vector<Range> RFData) {
   this->heading = heading;
   this->RFData = RFData;
 }
