@@ -104,7 +104,9 @@ class ViewController: NSViewController, CommDelegate {
     
     // MARK: - Update views
     func addRangefinderDataToMap(RFData: RangefinderData) {
-        (mapView.scene as MapScene).addPoint(RFData)
+        if (RFData.distance > 0) {
+            (mapView.scene as! MapScene).addPoint(RFData)
+        }
     }
     
     func updateRangefinderViews(RFData: [RangefinderData]) {
@@ -172,12 +174,12 @@ class ViewController: NSViewController, CommDelegate {
 extension SKNode {
     
     class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
+        if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
             var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKScene
             archiver.finishDecoding()
             return scene
         } else {

@@ -25,7 +25,7 @@ extension NSColor {
             cString = (cString as NSString).substringFromIndex(1)
         }
         
-        if (countElements(cString) != 6) {
+        if (count(cString) != 6) {
             cString = "aaaaaa"
         }
         

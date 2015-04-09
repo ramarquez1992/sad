@@ -10,10 +10,10 @@ import SpriteKit
 
 class MapScene: SKScene {
 
-    var scale = CGFloat(1)
+    var displayScale = CGFloat(1)
     var gridSize: CGFloat {
         get {
-            return Config.get("initialGridSize") as CGFloat * scale
+            return Config.get("initialGridSize") as! CGFloat * displayScale
         }
     }
     
@@ -69,8 +69,8 @@ class MapScene: SKScene {
             CGPathMoveToPoint(pathToDraw, nil, 0, y)
             CGPathAddLineToPoint(pathToDraw, nil, size.width, y)
             horizontal.path = pathToDraw
-            horizontal.strokeColor = NSColor(hex: Config.get("gridColor") as String)
-            horizontal.lineWidth = Config.get("gridWidth") as CGFloat
+            horizontal.strokeColor = NSColor(hex: Config.get("gridColor") as! String)
+            horizontal.lineWidth = Config.get("gridWidth") as! CGFloat
             self.addChild(horizontal)
             
             var vertical = SKShapeNode()
@@ -79,8 +79,8 @@ class MapScene: SKScene {
             CGPathMoveToPoint(pathToDraw, nil, x, 0)
             CGPathAddLineToPoint(pathToDraw, nil, x, size.height)
             vertical.path = pathToDraw
-            vertical.strokeColor = NSColor(hex: Config.get("gridColor") as String)
-            vertical.lineWidth = Config.get("gridWidth") as CGFloat
+            vertical.strokeColor = NSColor(hex: Config.get("gridColor")as! String)
+            vertical.lineWidth = Config.get("gridWidth") as! CGFloat
             self.addChild(vertical)
             
         }
@@ -99,8 +99,8 @@ class MapScene: SKScene {
         CGPathAddLineToPoint(pathToDraw, nil, size.width, size.height / 2)
         xAxis.path = pathToDraw
         
-        xAxis.strokeColor = NSColor(hex: Config.get("axisColor") as String)
-        xAxis.lineWidth = Config.get("axisWidth") as CGFloat
+        xAxis.strokeColor = NSColor(hex: Config.get("axisColor") as! String)
+        xAxis.lineWidth = Config.get("axisWidth") as! CGFloat
         
         self.addChild(xAxis)
     }
@@ -113,14 +113,14 @@ class MapScene: SKScene {
         CGPathAddLineToPoint(pathToDraw, nil, size.width / 2, size.height)
         yAxis.path = pathToDraw
         
-        yAxis.strokeColor = NSColor(hex: Config.get("axisColor") as String)
-        yAxis.lineWidth = Config.get("axisWidth") as CGFloat
+        yAxis.strokeColor = NSColor(hex: Config.get("axisColor") as! String)
+        yAxis.lineWidth = Config.get("axisWidth") as! CGFloat
         
         self.addChild(yAxis)
     }
     
     func zoom(scaleFactor: CGFloat) {
-        scale *= scaleFactor
+        displayScale *= scaleFactor
         
         var originalDronePosition = drone.physicalPosition
         drone.physicalPosition = drone.physicalPosition * scaleFactor
@@ -147,9 +147,9 @@ class MapScene: SKScene {
     }
     
     func drawPoint(loc: CGPoint) {
-        var color = NSColor(hex: Config.get("ptColor") as String)
-        var size = CGSize(width: Config.get("ptSize") as Int,
-            height: Config.get("ptSize") as Int)
+        var color = NSColor(hex: Config.get("ptColor") as! String)
+        var size = CGSize(width: Config.get("ptSize") as! Int,
+            height: Config.get("ptSize") as! Int)
         
         let point = SKSpriteNode(color: color, size: size)
         point.position = scaleInchesToPixels(loc)

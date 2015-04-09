@@ -21,10 +21,10 @@ class Drone: SKSpriteNode {
         }
     }
     
-    override init() {
-        var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as String)
-        var spriteSize = CGSize(width: (Config.get("droneSpriteSize") as CGFloat) * (Config.get("droneSpriteRatio") as CGFloat),
-            height: Config.get("droneSpriteSize") as CGFloat)
+    init() {
+        var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as! String)
+        var spriteSize = CGSize(width: (Config.get("droneSpriteSize") as! CGFloat) * (Config.get("droneSpriteRatio") as! CGFloat),
+            height: Config.get("droneSpriteSize") as! CGFloat)
         
         super.init(texture: nil, color: spriteColor, size: spriteSize)
     }

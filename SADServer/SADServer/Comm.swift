@@ -47,7 +47,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
         let fullPattern = "^\\([0-9]+(\\|[0-9]+,[0-9]+)+<[0-9]+>\\)$"
         let regex = NSRegularExpression(pattern: fullPattern, options: nil, error: nil)
         
-        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, countElements(packet))).location != NSNotFound) {
+        if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, count(packet))).location != NSNotFound) {
             result = true
         }
         
@@ -62,9 +62,9 @@ class Comm: NSObject, ORSSerialPortDelegate {
         
         heading = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
-            range: NSRange(location: 0, length: countElements(packet)),
+            range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1").toInt()!
-        
+
         return CGFloat(heading)
     }
     
@@ -81,13 +81,13 @@ class Comm: NSObject, ORSSerialPortDelegate {
             
             var firstSensor = regex!.stringByReplacingMatchesInString(remainder,
                 options: nil,
-                range: NSRange(location: 0, length: countElements(remainder)),
+                range: NSRange(location: 0, length: count(remainder)),
                 withTemplate: "$1")
             sensors.append(firstSensor)
             
             remainder = regex!.stringByReplacingMatchesInString(remainder,
                 options: nil,
-                range: NSRange(location: 0, length: countElements(remainder)),
+                range: NSRange(location: 0, length: count(remainder)),
                 withTemplate: "$2")
             
         }
@@ -103,7 +103,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
         
         sensorCount = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
-            range: NSRange(location: 0, length: countElements(packet)),
+            range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1").toInt()!
         
         return sensorCount
@@ -117,7 +117,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
         
         allSensors = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
-            range: NSRange(location: 0, length: countElements(packet)),
+            range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1")
         
         return allSensors
@@ -132,12 +132,12 @@ class Comm: NSObject, ORSSerialPortDelegate {
         
         distance = regex!.stringByReplacingMatchesInString(sensor,
             options: nil,
-            range: NSRange(location: 0, length: countElements(sensor)),
+            range: NSRange(location: 0, length: count(sensor)),
             withTemplate: "$1").toInt()!
         
         angle = regex!.stringByReplacingMatchesInString(sensor,
             options: nil,
-            range: NSRange(location: 0, length: countElements(sensor)),
+            range: NSRange(location: 0, length: count(sensor)),
             withTemplate: "$2").toInt()!
         
         return RangefinderData(distance: CGFloat(distance), angle: CGFloat(angle))
@@ -191,7 +191,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            RXBuffer += string
+            RXBuffer += string as String
             
             // Send any full packets out to be parsed
             while (RXBuffer.rangeOfString("\n") != nil) {
