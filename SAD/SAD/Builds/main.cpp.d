@@ -10,7 +10,11 @@ Builds/main.cpp.o: main.cpp \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino/USBAPI.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino/Arduino.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/variants/standard/pins_arduino.h \
- SAD.ino \
+ SAD.ino main.h \
+ /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/SoftwareSerial/SoftwareSerial.h \
+ /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino/Stream.h \
+ /Users/rmarquez14/Code/arduino/libraries/TimedAction/TimedAction.h \
+ CommStation.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/StandardCplusplus.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/vector \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/basic_definitions \
@@ -31,11 +35,8 @@ Builds/main.cpp.o: main.cpp \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/functional \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/type_traits \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/initializer_list \
- /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/SoftwareSerial/SoftwareSerial.h \
- /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino/Stream.h \
- /Users/rmarquez14/Code/arduino/libraries/TimedAction/TimedAction.h \
- CommStation.h Packet.h \
+ Packet.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/numeric \
- Rangefinder.h Motor.h Magnetometer.h \
+ Rangefinder.h Movements.h Motor.h Magnetometer.h \
  /Users/rmarquez14/Code/arduino/libraries/DigitalCompass/HMC5883L.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/Wire/Wire.h

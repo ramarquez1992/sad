@@ -21,7 +21,6 @@ class ViewController: NSViewController, CommDelegate {
     
     @IBOutlet weak var startStopButton: NSButton!
     @IBOutlet weak var resetButton: NSButton!
-    @IBOutlet weak var mapView: SKView!
     @IBOutlet weak var gridSizeTextField: NSTextField!
     
     @IBOutlet weak var lRangefinderTextField: NSTextField!
@@ -31,6 +30,7 @@ class ViewController: NSViewController, CommDelegate {
     @IBOutlet weak var speedTextField: NSTextField!
     @IBOutlet weak var headingTextField: NSTextField!
     
+    @IBOutlet weak var mapView: SKView!
     var map: MapScene!
 
     
@@ -46,11 +46,10 @@ class ViewController: NSViewController, CommDelegate {
             mapView.presentScene(scene)
             map = scene
         }
-        
     }
     
     // MARK: - IBAction
-    @IBAction func openOrClosePort(sender: AnyObject) {
+    @IBAction func openOrCloseConnection(sender: AnyObject) {
         if (comm.isOpen()) {
             comm.close()
             
@@ -92,36 +91,36 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     // MARK: - SLAM
-    func startSLAM() {
+    private func startSLAM() {
         map.drone.startSLAM()
         self.startStopButton.title = "STOP"
     }
     
-    func stopSLAM() {
+    private func stopSLAM() {
         map.drone.stopSLAM()
         self.startStopButton.title = "START"
     }
     
     // MARK: - Update views
-    func addRangefinderDataToMap(RFData: RangefinderData) {
+    private func addRangefinderDataToMap(RFData: RangefinderData) {
         if (RFData.distance > 0) {
             map.addPoint(RFData)
         }
     }
     
-    func updateRangefinderViews(RFData: [RangefinderData]) {
+    private func updateRangefinderViews(RFData: [RangefinderData]) {
         self.fRangefinderTextField.stringValue = "\(RFData[0].distance)\""
     }
     
-    func updateSpeedView(speed: Int) {
+    private func updateSpeedView(speed: Int) {
         self.speedTextField.stringValue = "\(speed)\"/s"
     }
     
-    func updateHeadingView(heading: CGFloat) {
+    private func updateHeadingView(heading: CGFloat) {
         self.headingTextField.stringValue = "\(heading)°"
     }
     
-    func updateReceivedDataTextView(string: String) {
+    private func updateReceivedDataTextView(string: String) {
         var df = NSDateFormatter()
         df.dateFormat = "[kk:mm:ss]  "
         var date = df.stringFromDate(NSDate())
@@ -161,24 +160,5 @@ class ViewController: NSViewController, CommDelegate {
         updateHeadingView(map.drone.heading)
     }
 
-}
-
-// MARK: -
-extension SKNode {
-    
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
-    }
-    
 }
 

@@ -9,6 +9,8 @@
 import Foundation
 
 struct RangefinderData {
+    
     var distance: CGFloat
     var angle: CGFloat
+    
 }

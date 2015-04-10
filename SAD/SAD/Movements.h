@@ -9,6 +9,8 @@
 #ifndef SAD_Movements_h
 #define SAD_Movements_h
 
+#include "main.h"
+
 void brake();
 void moveForward();
 void moveBackward();

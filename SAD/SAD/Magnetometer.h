@@ -13,6 +13,7 @@ using namespace std;
 #define DECLINATION_ANGLE 0.0    // in radians (Winona, MN)
 
 class Magnetometer : public HMC5883L {
+    
 private:
   float heading;
   

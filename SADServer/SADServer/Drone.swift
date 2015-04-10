@@ -17,13 +17,13 @@ class Drone: SKSpriteNode {
 
     var heading: CGFloat = Compass.NORTH {
         didSet {
-            zRotation = DEGREES_TO_RADIANS(90 - heading)
+            zRotation = degreesToRadians(heading) * -1
         }
     }
     
     init() {
-        var spriteColor = NSColor(hex: Config.get("droneSpriteColor") as! String)
-        var spriteSize = CGSize(width: (Config.get("droneSpriteSize") as! CGFloat) * (Config.get("droneSpriteRatio") as! CGFloat),
+        let spriteColor = NSColor(hex: Config.get("droneSpriteColor") as! String)
+        let spriteSize = CGSize(width: (Config.get("droneSpriteSize") as! CGFloat) * (Config.get("droneSpriteRatio") as! CGFloat),
             height: Config.get("droneSpriteSize") as! CGFloat)
         
         super.init(texture: nil, color: spriteColor, size: spriteSize)

@@ -134,7 +134,7 @@ class MapScene: SKScene {
     
     // MARK: - Manage points
     func addPoint(RFData: RangefinderData) {
-        var trueDegrees =  drone.heading + (RFData.angle - 90)
+        var trueDegrees =  drone.heading + RFData.angle
 
         if (trueDegrees < 0) {
             trueDegrees = 360 - abs(trueDegrees)

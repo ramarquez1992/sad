@@ -9,11 +9,11 @@
 import Foundation
 
 // MARK: - Conversions
-func RADIANS_TO_DEGREES(radians: CGFloat) -> CGFloat {
+func radiansToDegrees(radians: CGFloat) -> CGFloat {
     return CGFloat(Double(radians) * (180 / M_PI))
 }
 
-func DEGREES_TO_RADIANS(degrees: CGFloat) -> CGFloat {
+func degreesToRadians(degrees: CGFloat) -> CGFloat {
     return CGFloat(Double(degrees) * (M_PI / 180))
 }
 
@@ -36,16 +36,17 @@ func / (point: CGPoint, scalar: CGFloat) ->CGPoint {
 
 // MARK: -
 func angleToUnitVector(angle: CGFloat) -> CGPoint {
-    var unit = CGPoint(x: -1, y: 0)                     // Unit vector of 0deg
-    var radians = DEGREES_TO_RADIANS(angle * -1)        // Rotation takes counter-clockwise radians
+    let unit = CGPoint(x: 0, y: 1)                  // Unit vector of 0deg
+    let radians = degreesToRadians(angle * -1)      // Rotation takes counter-clockwise radians
     
-    var newX = (unit.x * cos(radians)) - (unit.y * sin(radians))
-    var newY = (unit.x * sin(radians)) + (unit.y * cos(radians))
+    let newX = (unit.x * cos(radians)) - (unit.y * sin(radians))
+    let newY = (unit.x * sin(radians)) + (unit.y * cos(radians))
     
     return CGPoint(x: newX, y: newY)
 }
 
 extension CGPoint {
+    
     func length() -> CGFloat {
         return sqrt(x*x + y*y)
     }
@@ -54,6 +55,5 @@ extension CGPoint {
     func normalized() -> CGPoint {
         return self / length()
     }
+    
 }
-
-

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		202AE6A21AD75F9D00830CD9 /* SAD.ino in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6A21AD75F9D00830CD9 /* SAD.ino */; };
+		20EDA18C1AD7696F001C94F2 /* Movements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20EDA18B1AD7696F001C94F2 /* Movements.cpp */; };
 		20FAE6351AD75F9C00830CD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6341AD75F9C00830CD9 /* main.cpp */; };
 		20FAE6B81AD75FF300830CD9 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6B71AD75FF300830CD9 /* TODO.md */; };
 		20FAE6C41AD7602C00830CD9 /* CommStation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6B91AD7602C00830CD9 /* CommStation.cpp */; };
@@ -473,6 +474,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20EDA18A1AD768B8001C94F2 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		20EDA18B1AD7696F001C94F2 /* Movements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Movements.cpp; sourceTree = "<group>"; };
 		20FAE6311AD75F9C00830CD9 /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAE6341AD75F9C00830CD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		20FAE6361AD75F9C00830CD9 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -1130,6 +1133,32 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		20EDA18F1AD812FE001C94F2 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				20FAE6BF1AD7602C00830CD9 /* Movements.h */,
+				20FAE6BA1AD7602C00830CD9 /* CommStation.h */,
+				20FAE6BC1AD7602C00830CD9 /* Magnetometer.h */,
+				20FAE6BE1AD7602C00830CD9 /* Motor.h */,
+				20FAE6C11AD7602C00830CD9 /* Packet.h */,
+				20FAE6C31AD7602C00830CD9 /* Rangefinder.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		20EDA1901AD8130B001C94F2 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				20EDA18B1AD7696F001C94F2 /* Movements.cpp */,
+				20FAE6B91AD7602C00830CD9 /* CommStation.cpp */,
+				20FAE6BB1AD7602C00830CD9 /* Magnetometer.cpp */,
+				20FAE6BD1AD7602C00830CD9 /* Motor.cpp */,
+				20FAE6C01AD7602C00830CD9 /* Packet.cpp */,
+				20FAE6C21AD7602C00830CD9 /* Rangefinder.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
 		20FAE6251AD75F9C00830CD9 = {
 			isa = PBXGroup;
 			children = (
@@ -1153,18 +1182,10 @@
 			children = (
 				20FAE6361AD75F9C00830CD9 /* Makefile */,
 				20FAE6341AD75F9C00830CD9 /* main.cpp */,
+				20EDA18A1AD768B8001C94F2 /* main.h */,
 				20FAE6A21AD75F9D00830CD9 /* SAD.ino */,
-				20FAE6BF1AD7602C00830CD9 /* Movements.h */,
-				20FAE6BA1AD7602C00830CD9 /* CommStation.h */,
-				20FAE6B91AD7602C00830CD9 /* CommStation.cpp */,
-				20FAE6BC1AD7602C00830CD9 /* Magnetometer.h */,
-				20FAE6BB1AD7602C00830CD9 /* Magnetometer.cpp */,
-				20FAE6BE1AD7602C00830CD9 /* Motor.h */,
-				20FAE6BD1AD7602C00830CD9 /* Motor.cpp */,
-				20FAE6C11AD7602C00830CD9 /* Packet.h */,
-				20FAE6C01AD7602C00830CD9 /* Packet.cpp */,
-				20FAE6C31AD7602C00830CD9 /* Rangefinder.h */,
-				20FAE6C21AD7602C00830CD9 /* Rangefinder.cpp */,
+				20EDA18F1AD812FE001C94F2 /* Headers */,
+				20EDA1901AD8130B001C94F2 /* Source */,
 				20FAE63C1AD75F9C00830CD9 /* Sketchbook */,
 				AAAA150409203234AA000000 /* Resources */,
 				20FAE63E1AD75F9C00830CD9 /* Configurations */,
@@ -3040,6 +3061,7 @@
 				AA2A150409203234AA000092 /* WMath.cpp in Sources */,
 				AA2A150409203234AA000093 /* WMath.h in Sources */,
 				AA2A150409203234AA000094 /* WString.cpp in Sources */,
+				20EDA18C1AD7696F001C94F2 /* Movements.cpp in Sources */,
 				AA2A150409203234AA000095 /* WString.h in Sources */,
 				AA2A150409203234AA000098 /* SPI.cpp in Sources */,
 				AA2A150409203234AA000099 /* SPI.h in Sources */,

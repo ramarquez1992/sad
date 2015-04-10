@@ -27,117 +27,112 @@ class Comm: NSObject, ORSSerialPortDelegate {
     }
 
     // MARK: - Packet parsing
-    private func parsePacket(packetStr: String) -> Packet {
-        // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...<[heading]>)"
-        var packet = Packet()
-        
-        packet.heading = getHeading(packetStr)
-        
-        var rangefinderStrs = separateSensors(packetStr)
-        for rangefinder in rangefinderStrs {
-            packet.RFData.append(parseSensor(rangefinder))
-        }
-        
-        return packet
-    }
-    
+    // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]...<[heading]>)"
     private func isValidPacket(packet: String) -> Bool {
-        var result = false
+        var valid = false
         
-        let fullPattern = "^\\([0-9]+(\\|[0-9]+,[0-9]+)+<[0-9]+>\\)$"
-        let regex = NSRegularExpression(pattern: fullPattern, options: nil, error: nil)
+        let validPacketPattern = "^\\([0-9]+(\\|[0-9]+,[0-9]+)+<[0-9]+>\\)$"
+        let regex = NSRegularExpression(pattern: validPacketPattern, options: nil, error: nil)
         
         if (regex?.rangeOfFirstMatchInString(packet, options: nil, range: NSMakeRange(0, count(packet))).location != NSNotFound) {
-            result = true
+            valid = true
         }
         
-        return result
+        return valid
     }
     
-    private func getHeading(packet: String) -> CGFloat {
-        var heading = 20
+    private func parsePacket(packetStr: String) -> Packet {
+        let heading = getHeading(packetStr)
+        let RFData = getRangefinders(packetStr)
         
+        return Packet(heading: heading, RFData: RFData)
+    }
+
+    private func getHeading(packet: String) -> CGFloat {
         let headingPattern = "^\\([0-9]+(?:\\|[0-9]+,[0-9]+)+<([0-9]+)>\\)$"
         let regex = NSRegularExpression(pattern: headingPattern, options: nil, error: nil)
         
-        heading = regex!.stringByReplacingMatchesInString(packet,
+        let heading = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
             range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1").toInt()!
-
+        
         return CGFloat(heading)
     }
     
-    private func separateSensors(packet: String) -> [String] {
-        var sensors = [String]()
-        
-        let sensorPattern = "\\|([0-9]+,[0-9]+)(.*)"
-        let regex = NSRegularExpression(pattern: sensorPattern, options: nil, error: nil)
-        
-        let sensorCount = getSensorCount(packet)
-        var remainder = getAllSensors(packet)
+    private func getRangefinders(packet: String) -> [RangefinderData] {
+        let rangefinderStrs = separateRangefinderStrs(packet)
+        var RFData = [RangefinderData]()
 
-        for (var i = 0; i < sensorCount; ++i) {
-            
-            var firstSensor = regex!.stringByReplacingMatchesInString(remainder,
+        for rangefinderStr in rangefinderStrs {
+            RFData.append(parseRangefinder(rangefinderStr))
+        }
+        
+        return RFData
+    }
+    
+    private func separateRangefinderStrs(packet: String) -> [String] {
+        let rangefinderPattern = "\\|([0-9]+,[0-9]+)(.*)"
+        let regex = NSRegularExpression(pattern: rangefinderPattern, options: nil, error: nil)
+        
+        let rangefinderCount = getRangefinderCount(packet)
+        var remainder = getAllRangefinderStrs(packet)
+
+        var rangefinderStrs = [String]()
+        for (var i = 0; i < rangefinderCount; ++i) {
+            let firstRangefinder = regex!.stringByReplacingMatchesInString(remainder,
                 options: nil,
                 range: NSRange(location: 0, length: count(remainder)),
                 withTemplate: "$1")
-            sensors.append(firstSensor)
+            rangefinderStrs.append(firstRangefinder)
             
             remainder = regex!.stringByReplacingMatchesInString(remainder,
                 options: nil,
                 range: NSRange(location: 0, length: count(remainder)),
                 withTemplate: "$2")
-            
         }
         
-        return sensors
+        return rangefinderStrs
     }
     
-    private func getSensorCount(packet: String) -> Int {
-        var sensorCount = 0
+    private func getRangefinderCount(packet: String) -> Int {
+        let rangefinderCountPattern = "^\\(([0-9]+)(\\|[0-9]+,[0-9]+)+<[0-9]+>\\)$"
+
+        let regex = NSRegularExpression(pattern: rangefinderCountPattern, options: nil, error: nil)
         
-        let sensorCountPattern = "^\\(([0-9]+)(\\|[0-9]+,[0-9]+)+<[0-9]+>\\)$"
-        let regex = NSRegularExpression(pattern: sensorCountPattern, options: nil, error: nil)
-        
-        sensorCount = regex!.stringByReplacingMatchesInString(packet,
+        let rangefinderCount = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
             range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1").toInt()!
         
-        return sensorCount
+        return rangefinderCount
     }
     
-    private func getAllSensors(packet: String) -> String {
-        var allSensors: String
+    private func getAllRangefinderStrs(packet: String) -> String {
+        let allRangefindersPattern = "^\\([0-9]+((\\|[0-9]+,[0-9]+)+)<[0-9]+>\\)$"
+
+        let regex = NSRegularExpression(pattern: allRangefindersPattern, options: nil, error: nil)
         
-        let allSensorsPattern = "^\\([0-9]+((\\|[0-9]+,[0-9]+)+)<[0-9]+>\\)$"
-        let regex = NSRegularExpression(pattern: allSensorsPattern, options: nil, error: nil)
-        
-        allSensors = regex!.stringByReplacingMatchesInString(packet,
+        let allRangefinders = regex!.stringByReplacingMatchesInString(packet,
             options: nil,
             range: NSRange(location: 0, length: count(packet)),
             withTemplate: "$1")
         
-        return allSensors
+        return allRangefinders
     }
     
-    private func parseSensor(sensor: String) -> RangefinderData {
-        var distance = 0
-        var angle = 0
-
-        let sensorPattern = "([0-9]+),([0-9]+)"
-        let regex = NSRegularExpression(pattern: sensorPattern, options: nil, error: nil)
+    private func parseRangefinder(rangefinderStr: String) -> RangefinderData {
+        let rangefinderPattern = "([0-9]+),([0-9]+)"
+        let regex = NSRegularExpression(pattern: rangefinderPattern, options: nil, error: nil)
         
-        distance = regex!.stringByReplacingMatchesInString(sensor,
+        let distance = regex!.stringByReplacingMatchesInString(rangefinderStr,
             options: nil,
-            range: NSRange(location: 0, length: count(sensor)),
+            range: NSRange(location: 0, length: count(rangefinderStr)),
             withTemplate: "$1").toInt()!
         
-        angle = regex!.stringByReplacingMatchesInString(sensor,
+        let angle = regex!.stringByReplacingMatchesInString(rangefinderStr,
             options: nil,
-            range: NSRange(location: 0, length: count(sensor)),
+            range: NSRange(location: 0, length: count(rangefinderStr)),
             withTemplate: "$2").toInt()!
         
         return RangefinderData(distance: CGFloat(distance), angle: CGFloat(angle))
@@ -191,9 +186,10 @@ class Comm: NSObject, ORSSerialPortDelegate {
     
     func serialPort(serialPort: ORSSerialPort!, didReceiveData data: NSData!) {
         if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            // Not guaranteed quantity of data received, so add to a buffer
             RXBuffer += string as String
             
-            // Send any full packets out to be parsed
+            // Send any full packets (separated by newline) out to be parsed
             while (RXBuffer.rangeOfString("\n") != nil) {
                 if let newlinePos = RXBuffer.rangeOfString("\n")?.startIndex {
                     var fullPacketRange = Range<String.Index>(start: RXBuffer.startIndex, end: newlinePos)
@@ -209,7 +205,6 @@ class Comm: NSObject, ORSSerialPortDelegate {
                     var remainder = RXBuffer.substringWithRange(remainderRange)
                     
                     RXBuffer = remainder
-                    
                 }
             }
         }

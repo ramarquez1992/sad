@@ -9,11 +9,10 @@
 import Foundation
 
 func delay(ms: Double, closure: () -> ()) {
-    var nsecs = ms * Double(NSEC_PER_MSEC)
+    let nsecs = ms * Double(NSEC_PER_MSEC)
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(nsecs))
     
     dispatch_after(time, dispatch_get_main_queue(), {
         closure()
     })
-    
 }

@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Packet {
+struct Packet {
     
-    var RFData = [RangefinderData]()
     var heading = Compass.NORTH
+    var RFData = [RangefinderData]()
     
 }
