@@ -29,10 +29,10 @@ Autonomous drone to map 2D space.
 
 ## Issues
 * minute memory/processing power
-    companion server to compute+display environment
+  * companion server to compute+display environment
 * ultrasonic sensor latency
-    disrupts server communication
-    only scan when not expecting anything from server?
-    laser rangefinders eventually?
+  * disrupts server communication
+  * only scan when not expecting anything from server?
+  * laser rangefinders eventually?
 * imperfect chassis throws drone off course
-    built in course-correction w/ magnetometer
+  * built in course-correction w/ magnetometer
