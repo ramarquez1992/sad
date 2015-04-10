@@ -31,7 +31,7 @@ class ViewController: NSViewController, CommDelegate {
     @IBOutlet weak var speedTextField: NSTextField!
     @IBOutlet weak var headingTextField: NSTextField!
     
-    var map: MapScene?
+    var map: MapScene!
 
     
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     @IBAction func startOrStopSLAM(AnyObject) {
-        if (!map!.drone.running) {
+        if (!map.drone.running) {
             startSLAM()
         } else {
             stopSLAM()
@@ -80,32 +80,32 @@ class ViewController: NSViewController, CommDelegate {
     
     @IBAction func resetMap(AnyObject) {
         stopSLAM()
-        map?.reset()
+        map.reset()
     }
     
     @IBAction func zoomIn(AnyObject) {
-        map!.zoom(0.5)
+        map.zoom(0.5)
     }
     
     @IBAction func zoomOut(AnyObject) {
-        map!.zoom(2)
+        map.zoom(2)
     }
     
     // MARK: - SLAM
     func startSLAM() {
-        map!.drone.startSLAM()
+        map.drone.startSLAM()
         self.startStopButton.title = "STOP"
     }
     
     func stopSLAM() {
-        map!.drone.stopSLAM()
+        map.drone.stopSLAM()
         self.startStopButton.title = "START"
     }
     
     // MARK: - Update views
     func addRangefinderDataToMap(RFData: RangefinderData) {
         if (RFData.distance > 0) {
-            (mapView.scene as! MapScene).addPoint(RFData)
+            map.addPoint(RFData)
         }
     }
     
@@ -149,7 +149,7 @@ class ViewController: NSViewController, CommDelegate {
     }
     
     func didReceivePacket(packet: Packet, rawPacket: String) {
-        map!.drone.heading = packet.heading
+        map.drone.heading = packet.heading
         
         for sensor in packet.RFData {
             addRangefinderDataToMap(sensor)
@@ -158,16 +158,9 @@ class ViewController: NSViewController, CommDelegate {
         updateReceivedDataTextView(rawPacket + "\n")
         updateRangefinderViews(packet.RFData)
         updateSpeedView(2)      // TODO: real data for speed view
-        updateHeadingView(map!.drone.heading)
+        updateHeadingView(map.drone.heading)
     }
 
-    /*override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ConnectionSettingsView" {
-            var destinationView = segue.destinationController as ConnectionSettingsController
-            destinationView.serialPort = serialPort!;
-            
-        }
-    }*/
 }
 
 // MARK: -

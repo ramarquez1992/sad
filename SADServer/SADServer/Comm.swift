@@ -27,7 +27,7 @@ class Comm: NSObject, ORSSerialPortDelegate {
     }
 
     // MARK: - Packet parsing
-    func parsePacket(packetStr: String) -> Packet {
+    private func parsePacket(packetStr: String) -> Packet {
         // Format: "([number of rangefinders]|[sensor 1]|[sensor 2]|...<[heading]>)"
         var packet = Packet()
         

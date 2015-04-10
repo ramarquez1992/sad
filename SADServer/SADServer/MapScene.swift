@@ -146,7 +146,7 @@ class MapScene: SKScene {
         drawPoint(pt)
     }
     
-    func drawPoint(loc: CGPoint) {
+    private func drawPoint(loc: CGPoint) {
         var color = NSColor(hex: Config.get("ptColor") as! String)
         var size = CGSize(width: Config.get("ptSize") as! Int,
             height: Config.get("ptSize") as! Int)
@@ -155,16 +155,6 @@ class MapScene: SKScene {
         point.position = scaleInchesToPixels(loc)
 
         self.addChild(point)
-    }
-    
-    func addRandomPoints(n: Int) {
-        if (n > 0) {
-            drawPoint(getRandomPosition())
-            
-            delay(300) {
-                self.addRandomPoints(n - 1)
-            }
-        }
     }
     
     // MARK: - Scaling
