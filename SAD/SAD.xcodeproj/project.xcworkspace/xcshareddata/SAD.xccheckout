@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>1DFF8CEF-BC2D-4A33-9E78-860FE94C8D0F</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>SAD</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>83284FF0C66A14C1E39CEBE5B82C2AFAD762E008</key>
 		<string>https://github.com/richard92m/sad.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SAD/SAD.xcodeproj/project.xcworkspace</string>
+	<string>SAD/SAD.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>83284FF0C66A14C1E39CEBE5B82C2AFAD762E008</key>
