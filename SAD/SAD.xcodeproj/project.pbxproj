@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		202AE6A21AD75F9D00830CD9 /* SAD.ino in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6A21AD75F9D00830CD9 /* SAD.ino */; };
-		20EDA18C1AD7696F001C94F2 /* Movements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20EDA18B1AD7696F001C94F2 /* Movements.cpp */; };
+		205289001AD97DE900AAD279 /* DigitalCompass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 205288FF1AD97DE900AAD279 /* DigitalCompass.cpp */; };
+		205289031AD99F8100AAD279 /* Drone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 205289021AD99F8100AAD279 /* Drone.cpp */; };
+		205289081AD9B59600AAD279 /* Packet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 205289071AD9B59500AAD279 /* Packet.cpp */; };
 		20FAE6351AD75F9C00830CD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6341AD75F9C00830CD9 /* main.cpp */; };
 		20FAE6B81AD75FF300830CD9 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6B71AD75FF300830CD9 /* TODO.md */; };
 		20FAE6C41AD7602C00830CD9 /* CommStation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6B91AD7602C00830CD9 /* CommStation.cpp */; };
-		20FAE6C51AD7602C00830CD9 /* Magnetometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6BB1AD7602C00830CD9 /* Magnetometer.cpp */; };
 		20FAE6C61AD7602C00830CD9 /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6BD1AD7602C00830CD9 /* Motor.cpp */; };
-		20FAE6C71AD7602C00830CD9 /* Packet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6C01AD7602C00830CD9 /* Packet.cpp */; };
 		20FAE6C81AD7602C00830CD9 /* Rangefinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE6C21AD7602C00830CD9 /* Rangefinder.cpp */; };
 		20FAE83F1AD763DD00830CD9 /* HMC5883L.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE7A41AD763DC00830CD9 /* HMC5883L.cpp */; };
 		20FAE8401AD763DD00830CD9 /* algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20FAE7A91AD763DC00830CD9 /* algorithm.cpp */; };
@@ -474,8 +474,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		205288FE1AD97D6000AAD279 /* DigitalCompass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DigitalCompass.h; sourceTree = "<group>"; };
+		205288FF1AD97DE900AAD279 /* DigitalCompass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DigitalCompass.cpp; sourceTree = "<group>"; };
+		205289011AD99DE500AAD279 /* Drone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drone.h; sourceTree = "<group>"; };
+		205289021AD99F8100AAD279 /* Drone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Drone.cpp; sourceTree = "<group>"; };
+		205289051AD9A67600AAD279 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		205289071AD9B59500AAD279 /* Packet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Packet.cpp; sourceTree = "<group>"; };
 		20EDA18A1AD768B8001C94F2 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		20EDA18B1AD7696F001C94F2 /* Movements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Movements.cpp; sourceTree = "<group>"; };
 		20FAE6311AD75F9C00830CD9 /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		20FAE6341AD75F9C00830CD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		20FAE6361AD75F9C00830CD9 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -579,12 +584,8 @@
 		20FAE6B71AD75FF300830CD9 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		20FAE6B91AD7602C00830CD9 /* CommStation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CommStation.cpp; sourceTree = "<group>"; };
 		20FAE6BA1AD7602C00830CD9 /* CommStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommStation.h; sourceTree = "<group>"; };
-		20FAE6BB1AD7602C00830CD9 /* Magnetometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Magnetometer.cpp; sourceTree = "<group>"; };
-		20FAE6BC1AD7602C00830CD9 /* Magnetometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magnetometer.h; sourceTree = "<group>"; };
 		20FAE6BD1AD7602C00830CD9 /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
 		20FAE6BE1AD7602C00830CD9 /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
-		20FAE6BF1AD7602C00830CD9 /* Movements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movements.h; sourceTree = "<group>"; };
-		20FAE6C01AD7602C00830CD9 /* Packet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Packet.cpp; sourceTree = "<group>"; };
 		20FAE6C11AD7602C00830CD9 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
 		20FAE6C21AD7602C00830CD9 /* Rangefinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rangefinder.cpp; sourceTree = "<group>"; };
 		20FAE6C31AD7602C00830CD9 /* Rangefinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rangefinder.h; sourceTree = "<group>"; };
@@ -1136,11 +1137,12 @@
 		20EDA18F1AD812FE001C94F2 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				20FAE6BF1AD7602C00830CD9 /* Movements.h */,
 				20FAE6BA1AD7602C00830CD9 /* CommStation.h */,
-				20FAE6BC1AD7602C00830CD9 /* Magnetometer.h */,
-				20FAE6BE1AD7602C00830CD9 /* Motor.h */,
 				20FAE6C11AD7602C00830CD9 /* Packet.h */,
+				205289051AD9A67600AAD279 /* Command.h */,
+				205289011AD99DE500AAD279 /* Drone.h */,
+				205288FE1AD97D6000AAD279 /* DigitalCompass.h */,
+				20FAE6BE1AD7602C00830CD9 /* Motor.h */,
 				20FAE6C31AD7602C00830CD9 /* Rangefinder.h */,
 			);
 			name = Headers;
@@ -1149,11 +1151,11 @@
 		20EDA1901AD8130B001C94F2 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				20EDA18B1AD7696F001C94F2 /* Movements.cpp */,
 				20FAE6B91AD7602C00830CD9 /* CommStation.cpp */,
-				20FAE6BB1AD7602C00830CD9 /* Magnetometer.cpp */,
+				205289071AD9B59500AAD279 /* Packet.cpp */,
+				205289021AD99F8100AAD279 /* Drone.cpp */,
+				205288FF1AD97DE900AAD279 /* DigitalCompass.cpp */,
 				20FAE6BD1AD7602C00830CD9 /* Motor.cpp */,
-				20FAE6C01AD7602C00830CD9 /* Packet.cpp */,
 				20FAE6C21AD7602C00830CD9 /* Rangefinder.cpp */,
 			);
 			name = Source;
@@ -3028,6 +3030,7 @@
 				20FAE86B1AD763DD00830CD9 /* string.cpp in Sources */,
 				AA2A150409203234AA000074 /* syscalls_sam3.c in Sources */,
 				AA2A150409203234AA000075 /* Tone.cpp.disabled in Sources */,
+				205289001AD97DE900AAD279 /* DigitalCompass.cpp in Sources */,
 				AA2A150409203234AA000076 /* Tone.h in Sources */,
 				AA2A150409203234AA000077 /* UARTClass.cpp in Sources */,
 				AA2A150409203234AA000078 /* UARTClass.h in Sources */,
@@ -3036,7 +3039,6 @@
 				AA2A150409203234AA00007A /* USARTClass.cpp in Sources */,
 				20FAE86D1AD763DD00830CD9 /* typeinfo.cpp in Sources */,
 				AA2A150409203234AA00007B /* USARTClass.h in Sources */,
-				20FAE6C51AD7602C00830CD9 /* Magnetometer.cpp in Sources */,
 				AA2A150409203234AA00007D /* CDC.cpp in Sources */,
 				AA2A150409203234AA00007E /* HID.cpp in Sources */,
 				AA2A150409203234AA00007F /* USBAPI.h in Sources */,
@@ -3061,7 +3063,6 @@
 				AA2A150409203234AA000092 /* WMath.cpp in Sources */,
 				AA2A150409203234AA000093 /* WMath.h in Sources */,
 				AA2A150409203234AA000094 /* WString.cpp in Sources */,
-				20EDA18C1AD7696F001C94F2 /* Movements.cpp in Sources */,
 				AA2A150409203234AA000095 /* WString.h in Sources */,
 				AA2A150409203234AA000098 /* SPI.cpp in Sources */,
 				AA2A150409203234AA000099 /* SPI.h in Sources */,
@@ -3228,6 +3229,7 @@
 				AA2A150409203234AA000141 /* keyboard.cpp in Sources */,
 				AA2A150409203234AA000142 /* lcd.cpp in Sources */,
 				AA2A150409203234AA000143 /* Melody.cpp in Sources */,
+				205289031AD99F8100AAD279 /* Drone.cpp in Sources */,
 				AA2A150409203234AA000144 /* Motors.cpp in Sources */,
 				AA2A150409203234AA000145 /* Multiplexer.cpp in Sources */,
 				20FAE8621AD763DD00830CD9 /* numeric.cpp in Sources */,
@@ -3244,8 +3246,8 @@
 				AA2A150409203234AA00014E /* SquawkSD.cpp in Sources */,
 				AA2A150409203234AA00014F /* SquawkSD.h in Sources */,
 				AA2A150409203234AA000151 /* Adafruit_GFX.cpp in Sources */,
+				205289081AD9B59600AAD279 /* Packet.cpp in Sources */,
 				AA2A150409203234AA000152 /* Adafruit_GFX.h in Sources */,
-				20FAE6C71AD7602C00830CD9 /* Packet.cpp in Sources */,
 				AA2A150409203234AA000153 /* RobotTextManager.cpp in Sources */,
 				AA2A150409203234AA000154 /* RobotTextManager.h in Sources */,
 				AA2A150409203234AA000155 /* scripts_Hello_User.h in Sources */,

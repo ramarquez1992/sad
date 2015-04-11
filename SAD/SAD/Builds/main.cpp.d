@@ -13,7 +13,6 @@ Builds/main.cpp.o: main.cpp \
  SAD.ino main.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/SoftwareSerial/SoftwareSerial.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino/Stream.h \
- /Users/rmarquez14/Code/arduino/libraries/TimedAction/TimedAction.h \
  CommStation.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/StandardCplusplus.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/vector \
@@ -35,8 +34,8 @@ Builds/main.cpp.o: main.cpp \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/functional \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/type_traits \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/initializer_list \
- Packet.h \
+ Drone.h Packet.h \
  /Users/rmarquez14/Code/arduino/libraries/StandardCplusplus/numeric \
- Rangefinder.h Movements.h Motor.h Magnetometer.h \
+ Rangefinder.h Command.h Motor.h DigitalCompass.h \
  /Users/rmarquez14/Code/arduino/libraries/DigitalCompass/HMC5883L.h \
  /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/Wire/Wire.h
